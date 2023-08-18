@@ -1,0 +1,38 @@
+<mat-card class="car-selector-card" [class.collapsed]="collapsed">
+  <div class="collapse-header" (click)="toggleCollapse()">
+    <div class="collapse-icon">
+        <div>{{ collapsed ? 'v' : '^' }}</div>
+    </div>
+  </div>
+  <div class="title">
+    <mat-icon class="title-icon">directions_car</mat-icon>
+    <h3 class="title-text"> SELECT CAR TO SEARCH FOR PARTS</h3>
+  </div>
+  
+  <form [formGroup]="carForm">
+    <mat-form-field class="field">
+      <mat-label>Make:</mat-label>
+      <mat-select formControlName="selectedMake">
+        <mat-option *ngFor="let make of makes" [value]="make">{{ make }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field class="field">
+      <mat-label>Model:</mat-label>
+      <mat-select formControlName="selectedModel">
+        <mat-option *ngFor="let model of models" [value]="model">{{ model }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="field">
+      <mat-label>Engine:</mat-label>
+      <mat-select formControlName="selectedEngine">
+        <mat-option *ngFor="let engine of engines" [value]="engine">{{ engine }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <button mat-raised-button class="search-button" color="primary" type="submit">
+      Search
+    </button>
+  </form>
+</mat-card>

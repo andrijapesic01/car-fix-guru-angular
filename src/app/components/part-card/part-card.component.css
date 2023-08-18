@@ -1,0 +1,53 @@
+.part-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  max-width: 250px;
+  margin: 10px;
+}
+
+.part-image img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.part-details h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.cart-icon {
+  vertical-align: middle;
+  margin-left: 5px;
+}
+  
+.in-stock {
+  color: green;
+}
+  
+.out-of-stock {
+  color: red;
+}
+
+.article-no {
+  font-size: 14px;
+  color: rgb(56, 56, 56);
+}
+
+.btn-buy {
+  background-color: #f44336;
+  color: white;
+  width: 140px;
+  margin-bottom: 5px;
+}
+
+.btn-buy:disabled {
+  background-color: rgb(151, 151, 151);
+  cursor: not-allowed;
+}
+  

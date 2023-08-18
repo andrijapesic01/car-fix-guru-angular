@@ -1,0 +1,65 @@
+<!--<div class="container">
+    <div class="left-column">
+        <span>Filters</span>
+        <app-car-select-card [collapsed]="carCardCollapsed"></app-car-select-card>
+    </div>
+    <div class="right-column">
+        <div class="search-field">
+            <input type="text" placeholder="Enter the part number or name">
+            <button mat-raised-button color="primary" class="search-button">
+              <mat-icon class="search-icon">search</mat-icon>
+              <span class="button-text">Search</span>
+            </button>
+        </div>
+        <div class="filters-container">
+            <div class="category-filter">
+            </div>
+            <div class="sub-category-filter">
+            </div>
+        </div>
+    </div>
+    <div class="fab-container">
+        <button class="fab-button" (click)="btnCartClikced()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span class="badge">3</span>
+        </button>
+      </div>
+</div> -->
+
+<div class="car-parts-page">
+  <div class="search-bar">
+    <div class="search-field">
+      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name">
+      <button mat-raised-button color="primary" class="search-button">
+        <mat-icon class="search-icon">search</mat-icon>
+        <span class="button-text">Search</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="left-column">
+      <!-- Filters (Add your filter components here) -->
+      <app-car-select-card [collapsed]="false"></app-car-select-card>
+    </div>
+
+    <div class="right-column">
+      <div class="parts-manufacturers-banner"> 
+
+      </div>
+      <mat-paginator
+        [length]="totalParts"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange()"
+      ></mat-paginator>
+
+      <!-- Part Cards (Below Paginator) -->
+      <div class="part-cards">
+        <div class="part-card" *ngFor="let part of parts">
+          <app-part-card [part]="part"></app-part-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

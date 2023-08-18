@@ -1,0 +1,17 @@
+<div class="part-card">
+    <div class="part-image">
+      <img [src]="part.imgURLs[0]" alt="{{ part.name }}">
+    </div>
+    <div class="part-details">
+      <h3>{{ part.manufacturer }} {{ part.name }}</h3>
+      <p class="article-no">Article No: {{ part.referenceNumber }}</p>
+      <p>Price: ${{ part.price }}</p>
+      <p class="stock-indicator" [ngClass]="{'in-stock': part.quantity > 0, 'out-of-stock': part.quantity === 0}">
+        {{ part.quantity > 0 ? '*In Stock' : '*Out of Stock' }}
+      </p>
+      <button mat-button class="btn-buy" [disabled]="part.quantity===0" (click)="addToCart(part)">Buy
+        <mat-icon class="cart-icon">shopping_cart</mat-icon>
+      </button>
+    </div>
+</div>
+  
