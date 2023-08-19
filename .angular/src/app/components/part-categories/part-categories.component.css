@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left-column {
+  flex: 1;
+}
+
+.right-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: -200px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-button {
+  margin-left: 10px;
+}
+
+.category-container {
+  padding: 20px 0;
+}
+
+.banner-text {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.app-part-category-card {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.app-part-category-card img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+}
+
+.app-part-category-card span {
+  font-size: 16px;
+}
+
+.category-cards-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  max-width: 740px;
+}
+
+.clickable-card:hover {
+  cursor: pointer;
+  background-color: #e4e2e2;
+}

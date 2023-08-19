@@ -1,0 +1,40 @@
+<div class="part-details-page">
+    <div class="search-bar">
+        <div class="search-field">
+          <input type="text" class="search-bar-input" placeholder="Search for parts...">
+          <button mat-raised-button color="primary" class="search-button">
+            <mat-icon class="search-icon">search</mat-icon>
+            <span class="button-text">Search</span>
+          </button>
+        </div>
+    </div>
+    <div class="part-info-container">
+        <div class="part-images">
+            <app-image-viewer [images]="part.imgURLs"></app-image-viewer>
+        </div>
+        <div class="part-details">
+            <p class="article-no">Manufacturer: {{ part.manufacturer }}</p>
+            <p class="article-no">Category: {{part.category}}</p>
+            <p class="article-no">Sub category: {{part.subCategory}}</p>
+            <p class="article-no">Article: {{ part.name }}</p>
+            <p class="article-no">Article No: {{ part.referenceNumber }}</p>
+        </div>
+        <div class="buy-column">
+            <p class="price">Price: ${{ part.price }}</p>
+            <div class="quantity-picker">
+                <button mat-icon-button (click)="decreaseQuantity()">
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <input type="number" [(ngModel)]="selectedQuantity" min="1" [max]="part.quantity" class="quantity-input">
+                <button mat-icon-button (click)="increaseQuantity()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <p *ngIf="part.quantity > 0" class="in-stock">*In Stock</p>
+            <p *ngIf="part.quantity === 0" class="out-of-stock">*Out of Stock</p>
+            <button mat-raised-button color="accent" [disabled]="part.quantity === 0 || selectedQuantity === 0" (click)="addToCart(part)">
+                Buy <mat-icon class="cart-icon">shopping_cart</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

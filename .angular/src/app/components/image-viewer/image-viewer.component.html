@@ -1,0 +1,14 @@
+<div class="image-viewer">
+    <div class="main-image">
+      <img [src]="images[currentImageIndex]" alt="Main Image" width="250" height="250">
+    </div>
+    <div class="image-previews">
+      <div *ngFor="let image of images; let i = index" [class.selected]="i === currentImageIndex" (click)="currentImageIndex = i">
+        <img [src]="image" alt="Preview Image" width="50" height="50">
+      </div>
+    </div>
+    <div class="navigation-arrows">
+      <button (click)="showPreviousImage()" [disabled]="currentImageIndex === 0">←</button>
+      <button (click)="showNextImage()" [disabled]="currentImageIndex === images.length - 1">→</button>
+    </div>
+</div>

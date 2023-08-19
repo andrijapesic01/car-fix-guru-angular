@@ -1,0 +1,17 @@
+<div class="page-container">
+    <div class="article-page">
+        <h1 class="headline">{{ article.headline }}</h1>
+        <div class="text"><a class="dividing-headline">Car</a>Audi A6 C7(4G) 2L TDI 130KW</div>
+        <div class="text"><a class="dividing-headline">Description</a>{{ article.paragraphs[0] }}</div>
+        <div class="article-text"><a class="dividing-headline">Article</a>
+        <ng-container *ngFor="let paragraph of article.paragraphs.slice(1)">
+            <p class="text">{{ paragraph }}</p>
+        </ng-container>
+        </div>
+        <div class="images"><a class="dividing-headline">Images</a>
+        <img *ngFor="let imageUrl of article.imgURLs" [src]="imageUrl" alt="Article Image">
+        </div>
+        <div class="links-paragraph"><a class="dividing-headline">Parts</a>{{ article.parts }}</div>
+        <div class="links-paragraph"><a class="dividing-headline">Tools</a>{{ article.tools }}</div>
+    </div>
+</div>

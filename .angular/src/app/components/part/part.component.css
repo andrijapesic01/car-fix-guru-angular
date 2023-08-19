@@ -1,0 +1,104 @@
+.part-details-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+  
+.search-bar {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+  
+.search-bar input {
+    width: 600px;
+    height: 30px;
+    margin-right: 5px
+}
+
+.part-info-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 850px;
+    align-items: center;
+    border: 1px solid gray;
+    padding: 20px;
+}
+  
+.part-images {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.part-images img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+  
+.part-details {
+    text-align: center;
+}
+
+.part-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.article-no {
+    font-size: 20px;
+    color: rgb(56, 56, 56);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: left;
+    padding-bottom: 6px;
+    padding-left: 90px;
+}
+  
+.buy-column {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buy-button {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+  
+.quantity-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.quantity-input {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.in-stock {
+    color: green;
+    font-size: 18px;
+}
+
+.out-of-stock {
+  color: red;
+  font-size: 18px;
+}
+
+.price {
+  font-size: 20px;
+}

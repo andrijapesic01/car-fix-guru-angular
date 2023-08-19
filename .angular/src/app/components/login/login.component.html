@@ -1,0 +1,41 @@
+<div class="page-container">
+    <div class="headers">
+      <div>
+        <div class="header">
+          <h1>
+            <b>Welcome to <span d style="display: inline-block">Car Fix Guru</span></b>
+          </h1>
+        </div>
+        <div class="header">
+          <h2>DIY Car fixing tutorials, parts & tools</h2>
+        </div>
+      </div>
+    </div>
+    <div class="form-flex-container">
+      <div class="login-form">
+        <div class="login-header">
+          <img alt="Logo" src="assets/logo2.jpg" style="height: 6em; width: 6em" />
+          <h1>Car Fix Guru</h1>
+        </div>
+        <div class="login">
+          <div class="login__field">
+            <input class="login__input" placeholder="Email" type="text" #emailInput />
+          </div>
+          <div class="login__field">
+            <input class="login__input" placeholder="Password" type="password" #passwordInput />
+          </div>
+          <button
+            class="button login__submit"
+            id="loginButton"
+            (click)="onClick(emailInput.value, passwordInput.value)"
+          >
+            <span class="button__text">Log In</span>
+          </button>
+          <div class="a">
+            <a class="clickable-link" href="/signup">Don't have an account? Click here.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

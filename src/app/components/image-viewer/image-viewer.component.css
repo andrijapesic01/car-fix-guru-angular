@@ -1,0 +1,39 @@
+.image-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image {
+  margin-bottom: 10px;
+}
+
+.image-previews {
+  display: flex;
+  gap: 5px;
+}
+
+.image-previews div {
+  cursor: pointer;
+}
+
+.image-previews img {
+  border: 2px solid transparent;
+}
+
+.image-previews .selected img {
+  border-color: #b1b1b1;
+}
+
+.navigation-arrows {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.navigation-arrows button {
+  font-size: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
