@@ -1,0 +1,37 @@
+<div class="article-page">
+    <div class="article-form">
+        <form>
+          <div class="form-group">
+            <label for="headline">Headline:</label>
+            <input type="text" id="headline" name="headline" class="form-control" [(ngModel)]="article.headline">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea type="text" id="description" name="description" class="form-control" rows="3" [(ngModel)]="article.paragraphs[0]"></textarea>
+          </div>
+        <div class="form-group">
+            <label for="text">Text:</label>
+            <textarea type="text" id="text" name="text" class="form-control" rows="10" [(ngModel)]="article.paragraphs[1]"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="parts">Parts:</label>
+            <textarea type="text" id="parts" name="parts" class="form-control" rows="2" [(ngModel)]="article.parts"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tools">Tools:</label>
+            <textarea type="text" id="parts" name="parts" class="form-control" rows="2" [(ngModel)]="article.tools"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="images">Images:</label>
+            <input type="file" id="images" name="images" class="form-control" (change)="onSelect($event)" multiple>
+          </div>
+        <div class="form-group">
+            <label for="car">Car:</label>
+            <ng-select class="custom-select" name="selectedCars" [(ngModel)]="article.carID" [multiple]="true">
+                <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.brand }}{{ car.model }}</ng-option>
+            </ng-select>
+        </div>
+        <button mat-raised-button color="primary">Save</button>
+        </form>
+      </div>
+</div>

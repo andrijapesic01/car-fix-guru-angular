@@ -10,6 +10,12 @@ import { PartCardComponent } from './components/part-card/part-card.component';
 import { PartComponent } from './components/part/part.component';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { ArticleComponent } from './components/article/article.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AddEngineComponent } from './components/add-engine/add-engine.component';
+import { AddTransmissionComponent } from './components/add-transmission/add-transmission.component';
+import { AddCarComponent } from './components/add-car/add-car.component';
+import { AddPartComponent } from './components/add-part/add-part.component';
+import { AddArticleComponent } from './components/add-article/add-article.component';
 
 const routes: Routes = [
     {path:'login', component: LoginComponent},
@@ -22,6 +28,11 @@ const routes: Routes = [
     {path:'part-card', component: PartCardComponent},
     {path:'part', component: PartComponent},
     {path:'image-viewer', component: ImageViewerComponent},
+    {path:'add-engine', component: AddEngineComponent},
+    {path:'add-transmission', component: AddTransmissionComponent},
+    {path:'add-car', component: AddCarComponent},
+    {path:'add-part', component: AddPartComponent},
+    {path:'add-article', component: AddArticleComponent},
 ];
 
 @NgModule({

@@ -23,6 +23,18 @@ import { PartComponent } from './components/part/part.component';
 import { CommonModule } from '@angular/common';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { ArticleComponent } from './components/article/article.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AddEngineComponent } from './components/add-engine/add-engine.component';
+import { AddTransmissionComponent } from './components/add-transmission/add-transmission.component';
+import { AddCarComponent } from './components/add-car/add-car.component';
+import { AddPartComponent } from './components/add-part/add-part.component';
+import { AddArticleComponent } from './components/add-article/add-article.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireModule } from '@angular/fire/compat';
 
 
 @NgModule({
@@ -40,7 +52,13 @@ import { ArticleComponent } from './components/article/article.component';
     PartCardComponent,
     PartComponent,
     ImageViewerComponent,
-    ArticleComponent
+    ArticleComponent,
+    AboutUsComponent,
+    AddEngineComponent,
+    AddTransmissionComponent,
+    AddCarComponent,
+    AddPartComponent,
+    AddArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +68,10 @@ import { ArticleComponent } from './components/article/article.component';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    NgSelectModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
   ],
   providers: [PartCategoryCardService, EnginesService],
   bootstrap: [AppComponent]

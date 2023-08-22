@@ -14,7 +14,7 @@ export class PartsComponent {
   carCardCollapsed: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25];
   pageSize = 10;
-  parts: Part[] = [{ id: "1", name: "Oil Filter", manufacturer: "MAHLE", category: "Filter", subCategory: "Oil filter", 
+  public parts: Part[] = [{ id: "1", name: "Oil Filter", manufacturer: "MAHLE", category: "Filter", subCategory: "Oil filter", 
   imgURLs: ["./assets/part-images/mahle-oil-filter.jpg"], referenceNumber: "OX 143 D", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 10, price:9.76},
   { id: "2", name: "Brake Discs", manufacturer: "Brembo", category: "Brake", subCategory: "Brake discs", 
   imgURLs: ["./assets/part-images/brembo-brake-disc.jpg"], referenceNumber: "AF001", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 5, price:144},

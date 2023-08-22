@@ -1,0 +1,35 @@
+<div class="engine-page">
+    <div class="engine-form">
+      <img src="./assets/engine-icon.png" alt="Engine Icon" class="engine-icon">
+      <form>
+        <div class="form-group">
+          <label for="code">Engine Code:</label>
+          <input type="text" id="code" name="code" class="form-control" [(ngModel)]="engine.code">
+        </div>
+        <div class="form-group">
+          <label for="configuration">Configuration:</label>
+          <input type="text" id="configuration" name="configuration" class="form-control" [(ngModel)]="engine.configuration">
+        </div>
+        <div class="form-group">
+          <label for="fuelType">Fuel Type:</label>
+          <select id="fuelType" name="fuelType" class="form-control" [(ngModel)]="engine.fuelType">
+            <option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{ fuelType }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="displacement">Displacement(l):</label>
+          <input type="number" id="displacement" name="displacement" class="form-control" [(ngModel)]="engine.displacement">
+        </div>
+        <div class="form-group">
+          <label for="mark">Mark:</label>
+          <input type="text" id="mark" name="mark" class="form-control" [(ngModel)]="engine.mark">
+        </div>
+        <div class="form-group">
+          <label for="power">Power(kW):</label>
+          <input type="number" id="power" name="power" class="form-control" [(ngModel)]="engine.power">
+        </div>
+        <button mat-raised-button color="primary">Save</button>
+        </form>
+    </div>
+</div>
+  

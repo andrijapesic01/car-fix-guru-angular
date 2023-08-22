@@ -1,23 +1,23 @@
 <div class="container">
-  <div class="left-column">
-    <app-car-select-card></app-car-select-card>
-  </div>
-  <div class="right-column">
-    <div class="search-bar">
-      <div class="search-field">
-        <input type="text" placeholder="Enter the part number or name">
-        <button mat-raised-button color="primary" class="search-button">
-          <mat-icon class="search-icon">search</mat-icon>
-          <span class="button-text">Search</span>
-        </button>
-      </div>
+  <div class="search-bar">
+    <div class="search-field">
+      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name">
+      <button mat-raised-button color="primary" class="search-button">
+        <mat-icon class="search-icon">search</mat-icon>
+        <span class="button-text">Search</span>
+      </button>
     </div>
-    <div class="category-container">
-      <span class="banner-text">PLEASE, CHOOSE THE PROPER AUTO PARTS GROUP SUITABLE FOR YOUR CAR</span>
-      <div class="category-cards-container">
-        <div *ngFor="let category of partCategories" class="clickable-card" (click)="onCategoryClick(category)">
-          <app-part-category-card [categoryName]="category.name" [imgURL]="category.imgURL"></app-part-category-card>
-        </div>
+  </div>
+  <div class="page-content">
+    <div class="left-column">
+      <app-car-select-card class="car-select"></app-car-select-card>
+    </div>
+    <div class="right-column">
+      <a class="parts-text">Parts You may be interested in</a>
+      <div class="part-cards">
+        <app-part-card></app-part-card>
+        <app-part-card></app-part-card>
+        <app-part-card></app-part-card>
       </div>
     </div>
   </div>

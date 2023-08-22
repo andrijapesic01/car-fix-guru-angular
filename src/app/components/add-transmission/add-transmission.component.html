@@ -1,0 +1,28 @@
+<div class="transmission-page">
+    <div class="transmission-form">
+      <img src="./assets/transmission-icon.png" alt="Transmission Icon" class="transmission-icon">
+      <form>
+        <div class="form-group">
+          <label for="make">Manufacturer:</label>
+          <input type="text" id="make" name="make" class="form-control" [(ngModel)]="transmission.make">
+        </div>
+        <div class="form-group">
+          <label for="model">Model:</label>
+          <input type="text" id="model" name="model" class="form-control" [(ngModel)]="transmission.model">
+        </div>
+        <div class="form-group">
+          <label for="type">Transmission Type:</label>
+          <select id="type" name="type" class="form-control" [(ngModel)]="transmission.type">
+            <option value="Manual">Manual</option>
+            <option value="Automatic">Automatic</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="displacement">Number of gears:</label>
+          <input type="number" id="numOfGears" name="numOfGears" class="form-control" [(ngModel)]="transmission.numOfGears">
+        </div>
+        <button mat-raised-button color="primary">Save</button>
+      </form>
+    </div>
+</div>
+  
