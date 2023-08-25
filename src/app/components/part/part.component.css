@@ -102,3 +102,7 @@
 .price {
   font-size: 20px;
 }
+
+.part-details.not-found{
+    margin-top: 100px;
+}

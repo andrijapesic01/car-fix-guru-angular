@@ -20,19 +20,21 @@ import { AddArticleComponent } from './components/add-article/add-article.compon
 const routes: Routes = [
     {path:'login', component: LoginComponent},
     {path:'signup', component: SignupComponent},
-    {path:'part-categories', component: PartCategoriesComponent},
+    {path:'home', component: PartCategoriesComponent},
     {path:'articles', component: ArticlesComponent},
-    {path:'article', component: ArticleComponent},
+    {path:'article/:id', component: ArticleComponent},
     {path:'parts', component: PartsComponent},
+    {path:'part/:id', component: PartComponent},
     {path:'cart', component: CartComponent},
     {path:'part-card', component: PartCardComponent},
-    {path:'part', component: PartComponent},
     {path:'image-viewer', component: ImageViewerComponent},
     {path:'add-engine', component: AddEngineComponent},
     {path:'add-transmission', component: AddTransmissionComponent},
     {path:'add-car', component: AddCarComponent},
     {path:'add-part', component: AddPartComponent},
     {path:'add-article', component: AddArticleComponent},
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: '**', component: PartCategoriesComponent},
 ];
 
 @NgModule({

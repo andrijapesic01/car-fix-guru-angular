@@ -19,14 +19,14 @@
 
       </div>
       <mat-paginator
-        [length]="totalParts"
+        [length]="partsCount$ | async" 
         [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions"
         (page)="onPageChange()"
       ></mat-paginator>
 
       <div class="part-cards">
-        <div class="part-card" *ngFor="let part of parts">
+        <div class="part-card" *ngFor="let part of parts$ | async">
           <app-part-card [part]="part" (click)="partCardClick(part)"></app-part-card>
         </div>
       </div>

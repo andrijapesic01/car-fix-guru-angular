@@ -35,6 +35,13 @@ import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { partReducer } from './state/part/part.reducer';
+import { AppState } from './app.state';
+import { articleReducer } from './state/article/article.reducer';
+import { PartEffects } from './state/part/part.effects';
+import { ArticleEffects } from './state/article/article.effects';
 
 
 @NgModule({
@@ -72,6 +79,8 @@ import { AngularFireModule } from '@angular/fire/compat';
     NgSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
+    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer }),
+    EffectsModule.forRoot([PartEffects, ArticleEffects]),
   ],
   providers: [PartCategoryCardService, EnginesService],
   bootstrap: [AppComponent]

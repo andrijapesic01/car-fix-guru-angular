@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
 import { Engine } from 'src/app/models/engine.model';
-import { Part } from 'src/app/models/part.model';
+import { Part } from 'src/app/models/part/part.model';
 import { Transmission } from 'src/app/models/transmission.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs';
@@ -16,10 +16,10 @@ export class AddPartComponent {
   categories: string[] = [];
   subCategories: string[] = [];
   cars: Car[] = [];
-  transmissions: Transmission[] = []; 
-  engines: Engine[] = []; 
+  transmissions: Transmission[] = [];
+  engines: Engine[] = [];
 
-  constructor(private storage: AngularFireStorage) {}
+  constructor(private storage: AngularFireStorage) { }
 
   onSelect(event: any) {
     const files: File[] = event.target.files;

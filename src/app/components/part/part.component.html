@@ -8,7 +8,7 @@
           </button>
         </div>
     </div>
-    <div class="part-info-container">
+    <div *ngIf="part" class="part-info-container">
         <div class="part-images">
             <app-image-viewer [images]="part.imgURLs"></app-image-viewer>
         </div>
@@ -36,5 +36,8 @@
                 Buy <mat-icon class="cart-icon">shopping_cart</mat-icon>
             </button>
         </div>
+    </div>
+    <div *ngIf="!part" class="part-details not-found">
+        <h2>Ups...The part does not exist!</h2>
     </div>
 </div>
