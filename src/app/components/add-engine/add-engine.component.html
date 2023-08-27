@@ -1,35 +1,53 @@
 <div class="engine-page">
-    <div class="engine-form">
-      <img src="./assets/engine-icon.png" alt="Engine Icon" class="engine-icon">
-      <form>
-        <div class="form-group">
-          <label for="code">Engine Code:</label>
-          <input type="text" id="code" name="code" class="form-control" [(ngModel)]="engine.code">
+  <div class="engine-form">
+    <img src="./assets/engine-icon.png" alt="Engine Icon" class="engine-icon">
+    <form [formGroup]="engineForm" (ngSubmit)="btnSaveClick()">
+      <div class="form-group">
+        <label for="code">Engine Code:</label>
+        <input type="text" id="code" name="code" class="form-control" formControlName="code">
+        <div *ngIf="engineForm.get('code')?.invalid && (engineForm.get('code')?.dirty || engineForm.get('code')?.touched)">
+          <span class="error-message">Code is required</span>
         </div>
-        <div class="form-group">
-          <label for="configuration">Configuration:</label>
-          <input type="text" id="configuration" name="configuration" class="form-control" [(ngModel)]="engine.configuration">
+      </div>
+      <div class="form-group">
+        <label for="configuration">Configuration:</label>
+        <input type="text" id="configuration" name="configuration" class="form-control" formControlName="configuration">
+        <div *ngIf="engineForm.get('configuration')?.invalid && (engineForm.get('configuration')?.dirty || engineForm.get('configuration')?.touched)">
+          <span class="error-message">Configuration is required</span>
         </div>
-        <div class="form-group">
-          <label for="fuelType">Fuel Type:</label>
-          <select id="fuelType" name="fuelType" class="form-control" [(ngModel)]="engine.fuelType">
-            <option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{ fuelType }}</option>
-          </select>
+      </div>
+      <div class="form-group">
+        <label for="fuelType">Fuel Type:</label>
+        <select id="fuelType" name="fuelType" class="form-control" formControlName="fuelType">
+          <option value="" disabled>Select Fuel Type</option>
+          <option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{ fuelType }}</option>
+        </select>
+        <div *ngIf="engineForm.get('fuelType')?.invalid && (engineForm.get('fuelType')?.dirty || engineForm.get('fuelType')?.touched)">
+          <span class="error-message">Fuel Type is required</span>
         </div>
-        <div class="form-group">
-          <label for="displacement">Displacement(l):</label>
-          <input type="number" id="displacement" name="displacement" class="form-control" [(ngModel)]="engine.displacement">
+      </div>
+      <div class="form-group">
+        <label for="displacement">Displacement(l):</label>
+        <input type="number" id="displacement" name="displacement" class="form-control" formControlName="displacement">
+        <div *ngIf="engineForm.get('displacement')?.invalid && (engineForm.get('displacement')?.dirty || engineForm.get('displacement')?.touched)">
+          <span class="error-message">Displacement is required</span>
         </div>
-        <div class="form-group">
-          <label for="mark">Mark:</label>
-          <input type="text" id="mark" name="mark" class="form-control" [(ngModel)]="engine.mark">
+      </div>
+      <div class="form-group">
+        <label for="mark">Mark:</label>
+        <input type="text" id="mark" name="mark" class="form-control" formControlName="mark">
+        <div *ngIf="engineForm.get('mark')?.invalid && (engineForm.get('mark')?.dirty || engineForm.get('mark')?.touched)">
+          <span class="error-message">Mark is required</span>
         </div>
-        <div class="form-group">
-          <label for="power">Power(kW):</label>
-          <input type="number" id="power" name="power" class="form-control" [(ngModel)]="engine.power">
+      </div>
+      <div class="form-group">
+        <label for="power">Power(kW):</label>
+        <input type="number" id="power" name="power" class="form-control" formControlName="power">
+        <div *ngIf="engineForm.get('power')?.invalid && (engineForm.get('power')?.dirty || engineForm.get('power')?.touched)">
+          <span class="error-message">Power is required</span>
         </div>
-        <button mat-raised-button color="primary">Save</button>
-        </form>
-    </div>
+      </div>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+  </div>
 </div>
-  

@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { Engine } from 'src/app/models/engine.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { CreateModEngineDto } from 'src/app/models/engine/create-mod-engine-dto';
+import { addEngine } from 'src/app/state/engine/engine.actions';
 
 @Component({
   selector: 'app-add-engine',
@@ -8,14 +13,40 @@ import { Engine } from 'src/app/models/engine.model';
 })
 
 //Add onInit to fetch fuelTypes from DB
-export class AddEngineComponent {
+export class AddEngineComponent implements OnInit {
   fuelTypes: string[] = ["Diesel", "Petrol", "Hybrid-Petrol", "Hybrid-Diesel", "Methanol"];
-  engine: Engine = {id: '', code: '', configuration: '', fuelType: '', displacement: 0, mark: '', power: 0}; 
+  engineForm!: FormGroup;
 
-  constructor() {
-
+  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private store: Store<AppState>) {
+    
   }
 
-  
+  ngOnInit() : void {
+    this.initializeForm();
+  }
+
+  initializeForm() : void {
+    this.engineForm = this.formBuilder.group({
+      code: ['', Validators.required],
+      configuration: ['', Validators.required],
+      fuelType: ['', Validators.required],
+      displacement: ['', Validators.required],
+      mark: ['', Validators.required],
+      power: ['', Validators.required]
+    })
+  }
+
+  btnSaveClick() {
+    //add validation
+    if(this.engineForm.valid) {
+      const engineData: CreateModEngineDto = this.engineForm.value;
+      this.store.dispatch(addEngine({ engineData }));
+    }
+    else {
+      this.snackBar.open('Please fill all form fields.', 'Close', {
+        duration: 3000,
+    });
+    }
+  }  
 
 }

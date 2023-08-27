@@ -46,15 +46,46 @@ export class ArticleEffects {
         )
     );
 
+    createArticle$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(ArticleActions.addArticle),
+            mergeMap(({articleData}) => 
+                this.articleService.addArticle(articleData).pipe(
+                    map((article) => {
+                        this.snackBar.open('Article successfully added!', 'Okay', {
+                            duration: 4000,
+                        });
+                        this.router.navigate(['/add-article'], {
+                            replaceUrl: true,
+                        });
+                        return ArticleActions.addArticleSuccess({ article: article });
+                    }),
+                    catchError(({ error }) => {
+                        this.snackBar.open('Error occured! Adding article failed!', 'Close', {
+                            duration: 3000,
+                        });
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
+
     updateArticle$ = createEffect(() => 
         this.action$.pipe(
             ofType(ArticleActions.updateArticle),
             mergeMap(({ articleId, articleData}) => 
                 this.articleService.updateArticle(articleId, articleData).pipe(
                     map((article: Article) => {
+                        this.snackBar.open('Article successfully updated!', 'Okay', {
+                            duration: 4000,
+                        });
                         return ArticleActions.updateArticleSuccess({ article });
                     }),
                     catchError(({ error }) => {
+                        this.snackBar.open('Error occured! Updating article failed!', 'Close', {
+                            duration: 3000,
+                        });
                         return of({ type: error.message});
                     })
                 )

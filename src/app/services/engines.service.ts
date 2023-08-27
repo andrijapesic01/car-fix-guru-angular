@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Engine } from '../models/engine.model';
+import { Engine } from '../models/engine/engine.model';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { CreateModEngineDto } from '../models/engine/create-mod-engine-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,35 +15,28 @@ export class EnginesService {
 
   getAllEngines() {
     return this.http.get<Engine[]>(`${this.apiUrl}/engines`);
-    
   }
 
   getEngineById(id: string) {
-    const data = this.http.get<Engine>(`${this.apiUrl}/engines/${id}`).subscribe(
-      (engine: Engine) => {
-        console.log(engine);
-      }
-    );
-    return data;
+    return this.http.get<Engine>(`${this.apiUrl}/engines/${id}`)
   }
 
-  addEngine() {
-    const body = {
-      code: "ABCDE",
-      configuration: "V6",
-      fuelType: "Diesel",
-      displacement: 3,
-      mark: "TDI",
-      power: 180
-    };
-    
-    this.http.post(`${this.apiUrl}/engines/addEngine`, body).subscribe(
-      (response) => {
-        console.log('POST request successful:', response);
-      },
-      (error) => {
-        console.error('Error sending POST request:', error);
-      }
-    )
+  addEngine(engineData: CreateModEngineDto) {
+    const body = engineData;
+    return this.http.post<Engine>(`${this.apiUrl}/engines/addEngine`, body);
   }
+
+  updateEngine(engineId: string, engineData: CreateModEngineDto) {
+    const body = engineData;
+    return this.http.put<Engine>(environment.api.apiUrl+ `/parts/changePart/${engineId}`, body);
+  }
+
+  deleteEngine(engineId: string) {
+    return this.http.delete<any>(environment.api.apiUrl + '/engines/deleteEngine/' + engineId);
+  }
+
+  getAllFuelTypes() {
+    return this.http.get(environment.api.apiUrl + '/engines/fuelTypes');
+  }
+
 }

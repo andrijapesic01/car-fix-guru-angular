@@ -47,6 +47,31 @@ export class PartEffects {
         )
     );
 
+    addPart$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(PartActions.addPart),
+            mergeMap(({partData}) => 
+                this.partService.addPart(partData).pipe(
+                    map((part) => {
+                        this.snackBar.open('Part successfully added!', 'Okay', {
+                            duration: 4000,
+                        });
+                        this.router.navigate(['/part'+ part.id], {
+                            replaceUrl: true,
+                        });
+                        return PartActions.addPartSuccess({ part: part });
+                    }),
+                    catchError(({ error }) => {
+                        this.snackBar.open('Error occured! Adding part failed!', 'Close', {
+                            duration: 3000,
+                        });
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
+
     updatePart$ = createEffect(() => 
         this.action$.pipe(
             ofType(PartActions.updatePart),
@@ -63,7 +88,7 @@ export class PartEffects {
         )
     );
 
-    deleteAd$ = createEffect(() =>
+    deletePart$ = createEffect(() =>
         this.action$.pipe(
             ofType(PartActions.deletePart),
             mergeMap(({ partId }) => {
@@ -89,4 +114,19 @@ export class PartEffects {
         )
     );
 
+    loadPartCategories$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(PartActions.loadPart),
+            mergeMap(({ partId }) =>
+                this.partService.getPartById(partId).pipe(
+                    map((part: Part) => {
+                        return PartActions.loadPartSuccess({ part });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
 }

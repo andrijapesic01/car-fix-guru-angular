@@ -42,6 +42,10 @@ import { AppState } from './app.state';
 import { articleReducer } from './state/article/article.reducer';
 import { PartEffects } from './state/part/part.effects';
 import { ArticleEffects } from './state/article/article.effects';
+import { EngineEffects } from './state/engine/engine.effects';
+import { PartCategoryEffects } from './state/part-categories/part-categories.effects';
+import { engineReducer } from './state/engine/engine.reducer';
+import { partCategoryReducer } from './state/part-categories/part-categories.reducer';
 
 
 @NgModule({
@@ -79,8 +83,10 @@ import { ArticleEffects } from './state/article/article.effects';
     NgSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer }),
-    EffectsModule.forRoot([PartEffects, ArticleEffects]),
+    /* StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer }),
+    EffectsModule.forRoot([PartEffects, ArticleEffects]), */
+    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer }),
+    EffectsModule.forRoot([PartEffects, ArticleEffects, EngineEffects, PartCategoryEffects]),
   ],
   providers: [PartCategoryCardService, EnginesService],
   bootstrap: [AppComponent]

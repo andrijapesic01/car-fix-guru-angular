@@ -23,18 +23,12 @@ export class ArticlesService {
     }
 
     addArticle(articleData: CreateModArticleDto) {
-        const body = {
-            articleData
-        };
-
+        const body = articleData;
         return this.http.post<Article>(`${this.apiUrl}/articles/addArticle`, body);
     }
 
     updateArticle(articleId: string, articleData: CreateModArticleDto) {
-        const body = {
-            articleData
-        };
-
+        const body = articleData;
         return this.http.put<Article>(`${this.apiUrl}/articles/changeArticle/${articleId}`, body);
     }
 
