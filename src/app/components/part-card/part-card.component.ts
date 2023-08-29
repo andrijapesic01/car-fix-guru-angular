@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Part } from 'src/app/models/part/part.model';
 
 @Component({
@@ -10,7 +11,15 @@ import { Part } from 'src/app/models/part/part.model';
 export class PartCardComponent {
   @Input() part!: Part;
   
+  constructor(private router: Router) {
+
+  }
+
   addToCart(part: Part) {
     console.log("IMPLEMENT ADD TO CART!");
+  }
+
+  onClick() {
+    this.router.navigateByUrl('part/' + this.part.id);
   }
 }

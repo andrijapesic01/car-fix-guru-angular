@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { Article } from "src/app/models/article/article.model";
 import { CreateModArticleDto } from "src/app/models/article/crate-mod-article.dto";
-import { Car } from "src/app/models/car.model";
+import { Car } from "src/app/models/car/car.model";
 
 export const loadArticles = createAction('loadArticles');
 export const loadArticlesSuccess = createAction(

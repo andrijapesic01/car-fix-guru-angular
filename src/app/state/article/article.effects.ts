@@ -46,16 +46,16 @@ export class ArticleEffects {
         )
     );
 
-    createArticle$ = createEffect(() => 
+    addArticle$ = createEffect(() => 
         this.action$.pipe(
             ofType(ArticleActions.addArticle),
             mergeMap(({articleData}) => 
                 this.articleService.addArticle(articleData).pipe(
                     map((article) => {
                         this.snackBar.open('Article successfully added!', 'Okay', {
-                            duration: 4000,
+                            duration: 5000,
                         });
-                        this.router.navigate(['/add-article'], {
+                        this.router.navigate(['/articles'], {
                             replaceUrl: true,
                         });
                         return ArticleActions.addArticleSuccess({ article: article });

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Car } from "src/app/models/car.model";
+import { Car } from "src/app/models/car/car.model";
 import { CreateModPartDto } from "src/app/models/part/create-mod-part.dto";
 import { Part } from "src/app/models/part/part.model";
 

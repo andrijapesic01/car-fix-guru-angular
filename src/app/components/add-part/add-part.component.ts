@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Car } from 'src/app/models/car.model';
+import { Car } from 'src/app/models/car/car.model';
 import { Engine } from 'src/app/models/engine.model';
 import { Part } from 'src/app/models/part/part.model';
 import { Transmission } from 'src/app/models/transmission.model';
@@ -19,10 +19,10 @@ export class AddPartComponent {
   transmissions: Transmission[] = [];
   engines: Engine[] = [];
 
-  constructor(private storage: AngularFireStorage) { }
+  constructor() { }
 
   onSelect(event: any) {
-    const files: File[] = event.target.files;
+    /* const files: File[] = event.target.files;
     const uploadPromises: Promise<string>[] = [];
 
     for (const file of files) {
@@ -43,8 +43,7 @@ export class AddPartComponent {
         ).subscribe();
       });
 
-      uploadPromises.push(uploadPromise);
-    }
+      uploadPromises.push(uploadPromise);  }
 
     Promise.all(uploadPromises)
       .then((downloadURLs) => {
@@ -53,7 +52,6 @@ export class AddPartComponent {
       })
       .catch((error) => {
         console.error('Error uploading files: ', error);
-      });
-  }
-
+      });*/
+  } 
 }

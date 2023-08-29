@@ -24,6 +24,7 @@ export class ArticlesService {
 
     addArticle(articleData: CreateModArticleDto) {
         const body = articleData;
+        console.log(body);
         return this.http.post<Article>(`${this.apiUrl}/articles/addArticle`, body);
     }
 

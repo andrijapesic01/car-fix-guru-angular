@@ -33,6 +33,7 @@ const routes: Routes = [
     {path:'add-car', component: AddCarComponent},
     {path:'add-part', component: AddPartComponent},
     {path:'add-article', component: AddArticleComponent},
+    {path:'about-us', component: AboutUsComponent},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: '**', component: PartCategoriesComponent},
 ];
