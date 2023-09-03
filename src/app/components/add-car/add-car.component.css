@@ -43,6 +43,10 @@ button {
     width: 30%;
 }
 
+.select {
+    width: 268px;
+}
+
 .ng-select.custom {
     border:2px solid black;
     min-height: 30px;

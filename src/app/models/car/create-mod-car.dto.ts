@@ -1,6 +1,5 @@
 
-export interface Car {
-    id: string;
+export interface CreateModCarDto {
     brand: string;
     model: string;
     generation: string;

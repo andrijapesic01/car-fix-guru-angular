@@ -8,10 +8,9 @@ export class CreateModPartDto {
     category!: string;
     subCategory!: string;
     referenceNumber!: string;
-    imgURLs!: string[];
-    carIDs!: string[];
-    engineIDs!: string[];
-    transmissionIDs!: string[];
+    imgURLs: string[] = [];
+    carIDs: string[] = [];
+    engineIDs: string[] = [];
     quantity!: number;
     price!: number;
 }

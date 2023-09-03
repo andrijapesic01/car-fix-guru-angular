@@ -49,7 +49,6 @@ export const partReducer = createReducer(
                 imgURLs: part.imgURLs,
                 carIDs: part.carIDs,
                 engineIDs: part.engineIDs,
-                transmissionIDs: part.transmissionIDs,
                 quantity: part.quantity,
                 price: part.price
             },

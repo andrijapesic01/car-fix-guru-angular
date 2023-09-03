@@ -56,7 +56,7 @@ export class PartEffects {
                         this.snackBar.open('Part successfully added!', 'Okay', {
                             duration: 4000,
                         });
-                        this.router.navigate(['/part'+ part.id], {
+                        this.router.navigate(['/part/'+ part.id], {
                             replaceUrl: true,
                         });
                         return PartActions.addPartSuccess({ part: part });

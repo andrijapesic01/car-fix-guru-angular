@@ -1,20 +1,74 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
 import { Car } from 'src/app/models/car/car.model';
-import { Engine } from 'src/app/models/engine.model';
-import { Transmission } from 'src/app/models/transmission.model';
+import { CreateModCarDto } from 'src/app/models/car/create-mod-car.dto';
+import { Engine } from 'src/app/models/engine/engine.model';
+import { addCar } from 'src/app/state/car/car.actions';
+import { loadEngines } from 'src/app/state/engine/engine.actions';
+import { selectAllEngines } from 'src/app/state/engine/engine.selector';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
   styleUrls: ['./add-car.component.css']
 })
-export class AddCarComponent {
-  transmissions: Transmission[] = [{id: "1", make: "ZF", model: "H7", type: "Automatic", numOfGears: 7}, {id: "2", make: "ZF", model: "S6", type: "Manual", numOfGears: 6}];
-  engines: Engine[] = [{id: "1", code: "12", configuration: "I4", fuelType: "Petrol", displacement: 2.2, mark: "TFSI", power: 150}];
-  selectedTransmissions: string[] = [];
+export class AddCarComponent implements OnInit {
+  
+  //engines: Engine[] = [{id: "1", code: "12", configuration: "I4", fuelType: "Petrol", displacement: 2.2, mark: "TFSI", power: 150}];
+  //carData!: CreateModCarDto;
   selectedEngines: string[] = [];  
-  car!: Car;
-  constructor() {}
+  engines: Engine[] = [];
+  carForm!: FormGroup;
+  categories: string[] = ["Saloon", "Hatchback", "Estate", "Suv", "Sports car"];
+  selectedCategory!: string;
 
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private snackBar: MatSnackBar,
+    private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(loadEngines());
+    this.store.select(selectAllEngines).subscribe((items) => {
+      this.engines = items;
+    });
+
+    this.initializeForm();
+  }
+
+  initializeForm() {
+     this.carForm = this.formBuilder.group({
+      brand: ['', Validators.required],
+      model: ['', Validators.required],
+      generation: [''],
+      category: ['', Validators.required],
+      yearFrom: [null, Validators.required],
+      yearTo: [null, Validators.required],
+      engineIDs: [[]] 
+    });
+  }
+
+  saveCar() {
+    if(this.carForm.valid) {
+      const carData: CreateModCarDto = this.carForm.value;
+      //carData.category = this.selectedCategory;
+      /* this.http.post<Car>(`${environment.api.apiUrl}/cars/addCar`, carData).subscribe(
+        resposne => {
+          console.log(resposne);
+        }
+      ); */
+      this.store.dispatch(addCar({ carData }));
+    }
+    else {
+      this.snackBar.open('Please fill all form fields.', 'Close', {
+        duration: 3000,
+    });
+    }  
+  }
 
 }
+
+

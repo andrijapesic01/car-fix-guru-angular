@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -46,6 +45,8 @@ import { EngineEffects } from './state/engine/engine.effects';
 import { PartCategoryEffects } from './state/part-categories/part-categories.effects';
 import { engineReducer } from './state/engine/engine.reducer';
 import { partCategoryReducer } from './state/part-categories/part-categories.reducer';
+import { carReducer } from './state/car/car.reducer';
+import { CarEffects } from './state/car/car.effects';
 
 
 @NgModule({
@@ -85,8 +86,8 @@ import { partCategoryReducer } from './state/part-categories/part-categories.red
     AngularFireStorageModule,
     /* StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer }),
     EffectsModule.forRoot([PartEffects, ArticleEffects]), */
-    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer }),
-    EffectsModule.forRoot([PartEffects, ArticleEffects, EngineEffects, PartCategoryEffects]),
+    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer, car: carReducer }),
+    EffectsModule.forRoot([PartEffects, ArticleEffects, EngineEffects, PartCategoryEffects, CarEffects]),
   ],
   providers: [PartCategoryCardService, EnginesService],
   bootstrap: [AppComponent]

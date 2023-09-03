@@ -7,4 +7,6 @@ export interface CreateModArticleDto {
     tools: string;
     parts: string;
     carId: string;
+    userId: string;
+    engineId: string;
 }

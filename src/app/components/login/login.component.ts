@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Engine } from 'src/app/models/engine.model';
-import { EnginesService } from 'src/app/services/engines.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +7,8 @@ import { EnginesService } from 'src/app/services/engines.service';
 })
 export class LoginComponent {
 
-  engines: Engine[] = [];
-  engine!: Engine;
-  constructor(private engineService: EnginesService) {
+
+  constructor() {
 
   }
 

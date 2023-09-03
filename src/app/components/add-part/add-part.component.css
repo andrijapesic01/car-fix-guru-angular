@@ -41,3 +41,9 @@ button {
 select.form-control {
     width: 268px;
 }
+
+.custom-select {
+    height: 60px;
+    width: 268px;
+    background-color: red;
+}

@@ -1,61 +1,55 @@
 <div class="part-page">
-    <div class="part-form">
-        <form>
-          <div class="form-group">
-            <label for="name">Part name:</label>
-            <input type="text" id="name" name="part-name" class="form-control" [(ngModel)]="part.name">
-          </div>
-          <div class="form-group">
-            <label for="manufacturer">Manufacturer:</label>
-            <input type="text" id="manufacturer" name="manufacturer" class="form-control" [(ngModel)]="part.manufacturer">
-          </div>
-          <div class="form-group">
-            <label for="category">Category:</label>
-            <select id="category" name="category" class="form-control" [(ngModel)]="part.category">
-              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="subCategory">Category:</label>
-            <select id="subCategory" name="subCategory" class="form-control" [(ngModel)]="part.subCategory">
-              <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{ subCategory }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="referenceNumber">Article no:</label>
-            <input type="string" id="referenceNumber" name="referenceNumber" class="form-control" [(ngModel)]="part.referenceNumber">
-          </div>
-          <div class="form-group">
-            <label for="engines">Engines:</label>
-            <ng-select class="custom-select" name="selectedEngines" [(ngModel)]="part.engineIDs" [multiple]="true">
-                <ng-option *ngFor="let engine of engines" [value]="engine.id">{{ engine.code }}</ng-option>
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <label for="transmissions">Transmissions:</label>
-            <ng-select class="custom-select" name="selectedTransmissions" [(ngModel)]="part.transmissionIDs" [multiple]="true">
-                <ng-option *ngFor="let transmission of transmissions" [value]="transmission.id">{{ transmission.make }}{{ transmission.model }}</ng-option>
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <label for="transmissions">Cars:</label>
-            <ng-select class="custom-select" name="selectedTransmissions" [(ngModel)]="part.carIDs" [multiple]="true">
-                <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.brand }}{{ car.model }}</ng-option>
-            </ng-select>
-        </div>
-        <div class="form-group">
-          <label for="price">Price(USD):</label>
-          <input type="number" id="price" name="price" class="form-control" [(ngModel)]="part.price">
-        </div>
-        <div class="form-group">
-          <label for="quantity">Quantity(PCS):</label>
-          <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]="part.quantity">
-        </div>
-        <div class="form-group">
-          <label for="images">Images:</label>
-          <input type="file" id="images" name="images" class="form-control" (change)="onSelect($event)" multiple>
-        </div>
-        <button mat-raised-button color="primary">Save</button>
-        </form>
+  <div class="part-form">
+    <form [formGroup]="partForm">
+      <div class="form-group">
+        <label for="name">Part name:</label>
+        <input type="text" id="name" name="name" class="form-control" formControlName="name">
       </div>
+      <div class="form-group">
+        <label for="manufacturer">Manufacturer:</label>
+        <input type="text" id="manufacturer" name="manufacturer" class="form-control" formControlName="manufacturer">
+      </div>
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" name="category" class="form-control" formControlName="category" (change)="onCategoryChange()">
+          <option *ngFor="let category of partCategories" [value]="category.name">{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="subCategory">Subcategory:</label>
+        <select id="subCategory" name="subCategory" class="form-control" formControlName="subCategory">
+          <option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategory">{{ subCategory.subCategory }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="referenceNumber">Article no:</label>
+        <input type="text" id="referenceNumber" name="referenceNumber" class="form-control" formControlName="referenceNumber">
+      </div>
+      <div class="form-group">
+        <label for="engines">Engines:</label>
+        <ng-select class="custom-select" name="selectedEngines" formControlName="engineIDs" [multiple]="true" [(ngModel)]="selectedEngines">
+          <ng-option *ngFor="let engine of engines" [value]="engine.id">{{ engine.code }}</ng-option>
+        </ng-select>
+      </div>
+      <div class="form-group">
+        <label for="cars">Cars:</label>
+        <ng-select class="custom-select" name="selectedCars" formControlName="carIDs" [multiple]="true">
+          <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.brand }}{{ car.model }}</ng-option>
+        </ng-select>
+      </div>
+      <div class="form-group">
+        <label for="price">Price(USD):</label>
+        <input type="number" id="price" name="price" class="form-control" formControlName="price">
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity(PCS):</label>
+        <input type="number" id="quantity" name="quantity" class="form-control" formControlName="quantity">
+      </div>
+      <div class="form-group">
+        <label for="images">Images:</label>
+        <input type="file" id="images" name="images" class="form-control" (change)="onSelect($event)" multiple>
+      </div>
+      <button mat-raised-button color="primary" (click)="savePart()">Save</button>
+    </form>
+  </div>
 </div>

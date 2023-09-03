@@ -28,6 +28,7 @@ const routes: Routes = [
     {path:'cart', component: CartComponent},
     {path:'part-card', component: PartCardComponent},
     {path:'image-viewer', component: ImageViewerComponent},
+    //{path:'engines', component: EnginesManagementComponent},
     {path:'add-engine', component: AddEngineComponent},
     {path:'add-transmission', component: AddTransmissionComponent},
     {path:'add-car', component: AddCarComponent},

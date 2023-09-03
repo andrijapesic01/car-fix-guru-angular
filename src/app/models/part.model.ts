@@ -9,7 +9,6 @@ export interface Part {
     imgURLs: string[];
     carIDs: string[];
     engineIDs: string[];
-    transmissionIDs: string[];
     quantity: number;
     price: number;
 }
