@@ -1,0 +1,59 @@
+.car-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.car-form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+    width: 400px;
+    margin-top: 50px;
+}
+  
+.car-icon {
+    max-width: 130px;
+    margin-bottom: 20px;
+}
+  
+.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+  
+.label {
+    text-align: left;
+    margin-right: 10px;
+}
+  
+.form-control {
+    width: 250px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+  
+button {
+    margin-top: 10px;
+    width: 30%;
+}
+
+.select {
+    width: 268px;
+}
+
+.ng-select.custom {
+    border:2px solid black;
+    min-height: 30px;
+    width: 150px;
+    border-radius: 4px;
+}
+.ng-select.custom .ng-select-container  {            
+    min-height: 40px;
+    border-radius: 0;
+}

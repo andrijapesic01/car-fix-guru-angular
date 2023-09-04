@@ -60,4 +60,8 @@ export class PartsComponent implements OnInit {
     };
     this.router.navigate(['/part'], navigationExtras);
   }
+
+  btnAddClick() {
+    this.router.navigate(['/add-part']);
+  }
 }

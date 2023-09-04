@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Part } from 'src/app/models/part/part.model';
@@ -16,7 +16,7 @@ export class PartComponent implements OnInit {
   partId: string = '';
   selectedQuantity: number = 1;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>) {
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) {
 
   }
 
@@ -41,6 +41,23 @@ export class PartComponent implements OnInit {
   increaseQuantity(): void {
     if (this.part && this.selectedQuantity < this.part.quantity) {
       this.selectedQuantity++;
+    }
+  }
+
+  btnAddClick() {
+    this.router.navigate(['/add-part']);
+  }
+
+  btnUpdateClick() {
+    this.router.navigate(['/update-part/' + this.partId]);
+  }
+
+  btnDeleteClick(): void {
+    const confirmDelete = window.confirm('Are you sure you want to delete this part?');
+    if (confirmDelete) {
+      if (this.part) {
+        this.store.dispatch(PartActions.deletePart({ partId: this.part.id }));
+      }
     }
   }
 }

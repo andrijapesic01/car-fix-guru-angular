@@ -25,4 +25,8 @@ export class ArticlesComponent implements OnInit {
   btnReadMoreClick(articleId: string) {
     this.router.navigate(['/article/' + articleId]);
   }
+
+  btnAddClick() {
+    this.router.navigate(['/add-article']);
+  }
 }

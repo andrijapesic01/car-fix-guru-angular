@@ -1,0 +1,47 @@
+<div class="cars-page">
+    <div class="search-bar">
+        <div class="search-field">
+          <input type="text" class="search-bar-input" placeholder="Search for cars...">
+          <button mat-raised-button color="primary" class="search-button">
+            <mat-icon class="search-icon">search</mat-icon>
+            <span class="button-text">Search</span>
+          </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="cars-table">
+            <thead>
+                <tr>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Generation</th>
+                    <th>Category</th>
+                    <th>Production</th>
+                    <th>Engines</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let car of cars">
+                    <td>{{ car.brand }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.generation }}</td>
+                    <td>{{ car.category }}</td>
+                    <td>{{ car.yearFrom }} - {{ car.yearTo }}</td>
+                    <td>{{ car.engineIDs }}</td>
+                    <td>
+                        <button mat-icon-button color="primary" class="update-button" (click)="updateClick(car.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" class="delete-button" (click)="deleteClick(car.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button mat-fab color="primary" class="add-button" (click)="addClick()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

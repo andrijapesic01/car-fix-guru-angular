@@ -80,6 +80,9 @@ export class ArticleEffects {
                         this.snackBar.open('Article successfully updated!', 'Okay', {
                             duration: 4000,
                         });
+                        this.router.navigate(['/article/' + articleId], {
+                            replaceUrl: true,
+                        });
                         return ArticleActions.updateArticleSuccess({ article });
                     }),
                     catchError(({ error }) => {
@@ -93,7 +96,7 @@ export class ArticleEffects {
         )
     );
 
-    deleteAd$ = createEffect(() =>
+    deleteArticle$ = createEffect(() =>
         this.action$.pipe(
             ofType(ArticleActions.deleteArticle),
             mergeMap(({ articleId }) => {

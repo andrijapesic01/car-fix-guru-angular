@@ -47,6 +47,12 @@ import { engineReducer } from './state/engine/engine.reducer';
 import { partCategoryReducer } from './state/part-categories/part-categories.reducer';
 import { carReducer } from './state/car/car.reducer';
 import { CarEffects } from './state/car/car.effects';
+import { UpdateArticleComponent } from './components/update-article/update-article.component';
+import { EnginesComponent } from './components/engines/engines.component';
+import { UpdateEngineComponent } from './components/update-engine/update-engine.component';
+import { UpdatePartComponent } from './components/update-part/update-part.component';
+import { CarsComponent } from './components/cars/cars.component';
+import { UpdateCarComponent } from './components/update-car/update-car.component';
 
 
 @NgModule({
@@ -70,7 +76,13 @@ import { CarEffects } from './state/car/car.effects';
     AddTransmissionComponent,
     AddCarComponent,
     AddPartComponent,
-    AddArticleComponent
+    AddArticleComponent,
+    UpdateArticleComponent,
+    EnginesComponent,
+    UpdateEngineComponent,
+    UpdatePartComponent,
+    CarsComponent,
+    UpdateCarComponent,
   ],
   imports: [
     BrowserModule,

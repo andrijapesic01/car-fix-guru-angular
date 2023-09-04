@@ -1,0 +1,47 @@
+<div class="engines-page">
+    <div class="search-bar">
+        <div class="search-field">
+          <input type="text" class="search-bar-input" placeholder="Search for engines...">
+          <button mat-raised-button color="primary" class="search-button">
+            <mat-icon class="search-icon">search</mat-icon>
+            <span class="button-text">Search</span>
+          </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="engine-table">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Configuration</th>
+                    <th>Fuel Type</th>
+                    <th>Displacement (L)</th>
+                    <th>Mark</th>
+                    <th>Power (kW)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let engine of engines">
+                    <td>{{ engine.code }}</td>
+                    <td>{{ engine.configuration }}</td>
+                    <td>{{ engine.fuelType }}</td>
+                    <td>{{ engine.displacement }}</td>
+                    <td>{{ engine.mark }}</td>
+                    <td>{{ engine.power }} kW</td>
+                    <td>
+                        <button mat-icon-button color="primary" class="update-button" (click)="updateClick(engine.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" class="delete-button" (click)="deleteClick(engine.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button mat-fab color="primary" class="add-button" (click)="addClick()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

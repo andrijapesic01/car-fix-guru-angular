@@ -27,7 +27,7 @@ export class AddPartComponent implements OnInit {
   partForm!: FormGroup;
   categories: string[] = [];
   subCategories: SubCategory[] = [];
-  partCategories!: PartCategory[];
+  partCategories: PartCategory[] = [];
   cars: Car[] = [];
   engines: Engine[] = [];
   selectedCars: string[] = [];

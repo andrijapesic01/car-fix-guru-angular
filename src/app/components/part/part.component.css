@@ -71,7 +71,8 @@
 
 .buy-button {
     text-align: center;
-    width: 100%;
+    /* width: 100%; */
+    width: 120px;
     margin-top: 10px;
 }
   
@@ -105,4 +106,26 @@
 
 .part-details.not-found{
     margin-top: 100px;
+}
+
+.fab-button {
+    position: fixed;
+    top: 80px; 
+    right: 15px; 
+    z-index: 999;
+}
+
+.outer-container {
+    padding: 1px;
+}
+
+.buttons-container {
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.raised-button {
+    margin: 5px;
+    width: 120px;
 }

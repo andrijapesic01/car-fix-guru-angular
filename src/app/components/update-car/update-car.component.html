@@ -1,0 +1,40 @@
+<div class="car-page">
+    <div class="car-form">
+        <img src="./assets/audi-icon.png" alt="Car Icon" class="car-icon">
+        <form [formGroup]="carForm">
+            <div class="form-group">
+                <label for="brand">Brand:</label>
+                <input type="text" id="brand" name="brand" class="form-control" formControlName="brand">
+            </div>
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model" class="form-control" formControlName="model">
+            </div>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category" name="category" class="form-control select" formControlName="category">
+                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="generation">Generation:</label>
+                <input type="text" id="generation" name="generation" class="form-control" formControlName="generation">
+            </div>
+            <div class="form-group">
+                <label for="yearFrom">Year from:</label>
+                <input type="number" id="yearFrom" name="yearFrom" class="form-control" formControlName="yearFrom">
+            </div>
+            <div class="form-group">
+                <label for="yearTo">Year to:</label>
+                <input type="number" id="yearTo" name="yearTo" class="form-control" formControlName="yearTo">
+            </div>
+            <div class="form-group">
+                <label for="engines">Engines:</label>
+                <ng-select class="custom-select" name="selectedEngines" formControlName="engineIDs" [multiple]="true">
+                    <ng-option *ngFor="let engine of engines" [value]="engine.id">{{ engine.code }}</ng-option>
+                </ng-select>
+            </div>
+            <button mat-raised-button color="primary" (click)="updateCar()">Save</button>
+        </form>
+    </div>
+</div>

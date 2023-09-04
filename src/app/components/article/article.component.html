@@ -1,4 +1,11 @@
 <div class="page-container">
+    <div class="fab-button-container">
+        <a href="/add-article" class="fab-button-link">
+          <button mat-fab color="primary" class="fab-button">
+            <mat-icon>add</mat-icon>
+          </button>
+        </a>
+    </div>
     <div *ngIf="article" class="article-page">
         <h1 class="headline">{{ article.headline }}</h1>
         <div class="text"><a class="dividing-headline">Car</a>Audi A6 C7(4G) 2L TDI 130KW</div>
@@ -11,6 +18,10 @@
         </div>
         <div class="links-paragraph"><a class="dividing-headline">Parts</a>{{ article.parts }}</div>
         <div class="links-paragraph"><a class="dividing-headline">Tools</a>{{ article.tools }}</div>
+        <div class ="buttons">
+            <button mat-raised-button color="primary" class="mat-button" (click)="btnUpdateClick()">Update</button>
+            <button mat-raised-button color="accent" class="mat-button" (click)="btnDeleteClick()">Delete</button>        
+        </div>
     </div>
     <div *ngIf="!article" class="article-page">
         <h2>Oops, the article does not exist.</h2>

@@ -58,6 +58,7 @@ export class CarEffects {
                         this.router.navigate(['/add-car'], {
                             replaceUrl: true,
                         });
+                        this.router.navigate(['/cars'], { replaceUrl: true });
                         return CarActions.addCarSuccess({ car: car });
                     }),
                     catchError(({ error }) => {
@@ -80,6 +81,7 @@ export class CarEffects {
                         this.snackBar.open('Car successfully updated!', 'Okay', {
                             duration: 4000,
                         });
+                        this.router.navigate(['/cars'], { replaceUrl: true });
                         return CarActions.updateCarSuccess({ car });
                     }),
                     catchError(({ error }) => {
@@ -93,7 +95,7 @@ export class CarEffects {
         )
     );
 
-    deleteAd$ = createEffect(() =>
+    deleteCar$ = createEffect(() =>
         this.action$.pipe(
             ofType(CarActions.deleteCar),
             mergeMap(({ carId }) => {
@@ -105,7 +107,7 @@ export class CarEffects {
                             duration: 3000,
                         });
                         }
-                        this.router.navigate(['cars'], { replaceUrl: true });
+                        this.router.navigate(['/cars'], { replaceUrl: true });
                         return CarActions.deleteCarSuccess({ carId: id });
                     }),
                     catchError(({ error }) => {

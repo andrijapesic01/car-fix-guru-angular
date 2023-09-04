@@ -1,58 +1,68 @@
 .articles-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .search-bar {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  
-  .search-bar input {
-    width: 600px;
-    height: 30px;
-    margin-right: 5px;
-  }
-  
-  .articles-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    align-items: center;
-    flex:3;
-  }
-  
-  .article-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .article-card h3 {
-    font-size: 20px;
-    margin: 10px 0;
-  }
-  
-  .article-card p {
-    margin: 0;
-  }
-  
-  .article-card button {
-    width: 130px;
-    margin-top: 10px;
-  }
-  
-  .car-select {
-    flex: 1;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-  .articles-container {
-    display: flex;
+.search-bar {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
+  text-align: center;
+}
 
-  }
+.search-bar input {
+  width: 600px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.articles-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+  flex:3;
+}
+
+.article-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.article-card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.article-card p {
+  margin: 0;
+}
+
+.article-card button {
+  width: 130px;
+  margin-top: 10px;
+}
+
+.car-select {
+  flex: 1;
+}
+
+.articles-container {    
+  display: flex;
+}
+
+.fab-button-container {
+  position: fixed;
+  top: 80px; 
+  right: 10px;
+  z-index: 1000;
+}
+
+.fab-button-link {
+  text-decoration: none; 
+}

@@ -78,6 +78,7 @@ export class PartEffects {
             mergeMap(({ partId, partData}) => 
                 this.partService.updatePart(partId, partData).pipe(
                     map((part: Part) => {
+                        this.router.navigate(['part/'+partId], { replaceUrl: true });
                         return PartActions.updatePartSuccess({ part });
                     }),
                     catchError(({ error }) => {
@@ -114,7 +115,7 @@ export class PartEffects {
         )
     );
 
-    loadPartCategories$ = createEffect(() =>
+    /* loadPartCategories$ = createEffect(() =>
         this.action$.pipe(
             ofType(PartActions.loadPart),
             mergeMap(({ partId }) =>
@@ -128,5 +129,5 @@ export class PartEffects {
                 )
             )
         )
-    );
+    ); */
 }

@@ -28,7 +28,7 @@ export class EnginesService {
 
   updateEngine(engineId: string, engineData: CreateModEngineDto) {
     const body = engineData;
-    return this.http.put<Engine>(environment.api.apiUrl+ `/parts/changePart/${engineId}`, body);
+    return this.http.put<Engine>(environment.api.apiUrl+ `/engines/changeEngine/${engineId}`, body);
   }
 
   deleteEngine(engineId: string) {

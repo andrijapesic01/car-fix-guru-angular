@@ -16,27 +16,38 @@ import { AddTransmissionComponent } from './components/add-transmission/add-tran
 import { AddCarComponent } from './components/add-car/add-car.component';
 import { AddPartComponent } from './components/add-part/add-part.component';
 import { AddArticleComponent } from './components/add-article/add-article.component';
+import { UpdateArticleComponent } from './components/update-article/update-article.component';
+import { UpdateEngineComponent } from './components/update-engine/update-engine.component';
+import { EnginesComponent } from './components/engines/engines.component';
+import { UpdatePartComponent } from './components/update-part/update-part.component';
+import { CarsComponent } from './components/cars/cars.component';
+import { UpdateCarComponent } from './components/update-car/update-car.component';
 
 const routes: Routes = [
-    {path:'login', component: LoginComponent},
-    {path:'signup', component: SignupComponent},
-    {path:'home', component: PartCategoriesComponent},
-    {path:'articles', component: ArticlesComponent},
-    {path:'article/:id', component: ArticleComponent},
-    {path:'parts', component: PartsComponent},
-    {path:'part/:id', component: PartComponent},
-    {path:'cart', component: CartComponent},
-    {path:'part-card', component: PartCardComponent},
-    {path:'image-viewer', component: ImageViewerComponent},
-    //{path:'engines', component: EnginesManagementComponent},
-    {path:'add-engine', component: AddEngineComponent},
-    {path:'add-transmission', component: AddTransmissionComponent},
-    {path:'add-car', component: AddCarComponent},
-    {path:'add-part', component: AddPartComponent},
-    {path:'add-article', component: AddArticleComponent},
-    {path:'about-us', component: AboutUsComponent},
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path: '**', component: PartCategoriesComponent},
+  {path:'login', component: LoginComponent},
+  {path:'signup', component: SignupComponent},
+  {path:'home', component: PartCategoriesComponent},
+  {path:'articles', component: ArticlesComponent},
+  {path:'article/:id', component: ArticleComponent},
+  {path:'parts', component: PartsComponent},
+  {path:'part/:id', component: PartComponent},
+  {path:'cart', component: CartComponent},
+  {path:'part-card', component: PartCardComponent},
+  {path:'image-viewer', component: ImageViewerComponent},
+  {path:'engines', component: EnginesComponent},
+  {path:'cars', component: CarsComponent},
+  {path:'add-engine', component: AddEngineComponent},
+  {path:'add-transmission', component: AddTransmissionComponent},
+  {path:'add-car', component: AddCarComponent},
+  {path:'add-part', component: AddPartComponent},
+  {path:'add-article', component: AddArticleComponent},
+  {path:'update-part/:id', component: UpdatePartComponent},
+  {path:'update-article/:id', component: UpdateArticleComponent},
+  {path:'update-engine/:id', component: UpdateEngineComponent},
+  {path:'update-car/:id', component: UpdateCarComponent},
+  {path:'about-us', component: AboutUsComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '**', component: PartCategoriesComponent},
 ];
 
 @NgModule({

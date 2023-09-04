@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Article } from 'src/app/models/article/article.model';
 import { ArticlesService } from 'src/app/services/article.service';
-import { loadArticle } from 'src/app/state/article/article.actions';
+import { deleteArticle, loadArticle } from 'src/app/state/article/article.actions';
 import { selectArticleById } from 'src/app/state/article/article.selector';
 
 @Component({
@@ -15,10 +15,10 @@ import { selectArticleById } from 'src/app/state/article/article.selector';
 export class ArticleComponent implements OnInit {
   
   articleId!: string;
-  article?: Article; /* { id: "1", carId: "CAR1", headline: "Oil change Audi A6 C7 (4G)", description:"It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.", imgURLs: ["./assets/part-images/mahle-oil-filter.jpg","./assets/part-images/motul-oil-5w30.jpg", "./assets/part-images/brembo-brake-disc.jpg"], tools: "", 
-  parts:""}; */
+  article?: Article; 
 
-  constructor( private articleService: ArticlesService, private route: ActivatedRoute, private store: Store<AppState> ) {
+  constructor( private articleService: ArticlesService, private route: ActivatedRoute, 
+    private store: Store<AppState>, private router: Router ) {
 
   }
 
@@ -28,9 +28,21 @@ export class ArticleComponent implements OnInit {
       this.store.select(selectArticleById(this.articleId)).subscribe((item) => {
         this.article = item;
       });
-      /* this.articleService.getArticleById(this.articleId).subscribe( (res) => this.article = res); */
   }
 
+ 
+  btnDeleteClick(): void {
+    const confirmDelete = window.confirm('Are you sure you want to delete this article?');
+  
+    if (confirmDelete) {
+      if (this.article) {
+        this.store.dispatch(deleteArticle({ articleId: this.article.id }));
+      }
+    }
+  }
 
+  btnUpdateClick() {
+    this.router.navigate(['/update-article/' + this.article?.id]);
+  }
 }
 

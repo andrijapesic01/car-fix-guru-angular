@@ -1,0 +1,48 @@
+<div class="article-page">
+    <div class="article-form">
+      <form [formGroup]="articleForm">
+        <div class="form-group">
+          <label for="headline">Headline:</label>
+          <input type="text" id="headline" name="headline" class="form-control" formControlName="headline">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" class="form-control" rows="3" formControlName="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="text">Text:</label>
+          <textarea id="text" name="text" class="form-control" rows="10" formControlName="text"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="parts">Parts:</label>
+          <textarea id="parts" name="parts" class="form-control" rows="2" formControlName="parts"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="tools">Tools:</label>
+          <textarea id="tools" name="tools" class="form-control" rows="2" formControlName="tools"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="imgURLs">Images:</label>
+          <input type="file" id="imgURLs" name="imgURLs" class="form-control" formControlName="imgURLs" (change)="onSelect($event)" multiple>
+        </div>
+        <div class="form-group">
+          <label for="car">Car:</label>
+          <mat-select class="form-control" name="selectedCar" formControlName="carId" (selectionChange)="loadCarEngines(articleForm.get('carId')?.value)">
+            <mat-option *ngFor="let car of cars" [value]="car.id">
+              {{ car.brand }} {{ car.model }} {{ car.generation }} {{ car.category}} ({{ car.yearFrom }}-{{ car.yearTo }})
+            </mat-option>
+          </mat-select>
+        </div>
+        <div class="form-group">
+          <label for="engine">Engine:</label>
+          <mat-select class="form-control" name="selectedEngines" formControlName="engineId">
+            <mat-option *ngFor="let engine of carEngines" [value]="engine.id">
+              {{ engine.code }} {{ engine.configuration }} {{ engine.displacement }}l {{ engine.mark }} {{ engine.power }}kW
+            </mat-option>
+          </mat-select>
+        </div>
+        <button mat-raised-button color="primary" (click)="updateArticleClick()">Save</button>
+      </form>
+    </div>
+  </div>
+  

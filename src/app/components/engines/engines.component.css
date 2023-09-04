@@ -1,0 +1,51 @@
+.engines-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 30px;
+    text-align: center;
+}
+  
+.search-bar input {
+    width: 600px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.table-container {
+    margin-top: 30px;
+    width: 80%;
+    overflow-x: auto;
+}
+
+.engine-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.engine-table th,
+.engine-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.engine-table th {
+    background-color: #f2f2f2;
+}
+
+.update-button,
+.delete-button {
+    margin: 0 5px;
+}
+
+.add-button {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+}

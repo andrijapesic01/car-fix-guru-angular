@@ -37,7 +37,6 @@ export class AddEngineComponent implements OnInit {
   }
 
   btnSaveClick() {
-    //add validation
     if(this.engineForm.valid) {
       const engineData: CreateModEngineDto = this.engineForm.value;
       this.store.dispatch(addEngine({ engineData }));

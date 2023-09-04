@@ -62,3 +62,25 @@
     margin-top: 20px;
     font-size: 16px;
 }
+
+.buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.mat-button {
+    margin: 5px;
+    width: 120px;
+}
+
+.fab-button-container {
+    position: fixed;
+    top: 80px; 
+    right: 10px;
+    z-index: 1000;
+}
+  
+.fab-button-link {
+    text-decoration: none; 
+}
+  

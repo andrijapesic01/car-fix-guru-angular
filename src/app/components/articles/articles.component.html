@@ -1,24 +1,29 @@
 <div class="articles-page">
-    <div class="search-bar">
-      <div class="search-field">
-        <input type="text" class="search-bar-input" placeholder="Search for articles...">
-        <button mat-raised-button color="primary" class="search-button">
-          <mat-icon class="search-icon">search</mat-icon>
-          <span class="button-text">Search</span>
-        </button>
+  <div class="fab-button-container">
+    <a href="/add-article" class="fab-button-link">
+      <button mat-fab color="primary" class="fab-button">
+        <mat-icon>add</mat-icon>
+      </button>
+    </a>
+  </div>
+  <div class="search-bar">
+    <div class="search-field">
+      <input type="text" class="search-bar-input" placeholder="Search for articles...">
+      <button mat-raised-button color="primary" class="search-button">
+        <mat-icon class="search-icon">search</mat-icon>
+        <span class="button-text">Search</span>
+      </button>
+    </div>
+  </div>
+  <div class="articles-container">
+    <div class="car-select">    
+      <app-car-select-card></app-car-select-card>
+    </div>
+    <div *ngIf="articles$" class="articles-list">
+      <div class="article-card" *ngFor="let article of articles$ | async">
+          <h3>{{ article.headline }}</h3>
+          <p>{{ article.description }}</p>
+          <button mat-raised-button color="accent" (click)="btnReadMoreClick(article.id)">Read More</button>
       </div>
     </div>
-    <div class="articles-container">
-        <div class="car-select">    
-            <app-car-select-card></app-car-select-card>
-        </div>
-        <div *ngIf="articles$" class="articles-list">
-        <div class="article-card" *ngFor="let article of articles$ | async">
-            <h3>{{ article.headline }}</h3>
-            <p>{{ article.description }}</p>
-            <button mat-raised-button color="accent" (click)="btnReadMoreClick(article.id)">Read More</button>
-        </div>
-        </div>
-    </div>
 </div>
-  

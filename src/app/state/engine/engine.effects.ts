@@ -58,7 +58,7 @@ export class EngineEffects {
                         this.snackBar.open('Engine successfully added!', 'Okay', {
                             duration: 4000,
                         });
-                        this.router.navigate(['/add-engine'], {
+                        this.router.navigate(['/engines'], {
                             replaceUrl: true,
                         });
                         return EngineActions.addEngineSuccess({ engine: engine });
@@ -83,6 +83,9 @@ export class EngineEffects {
                         this.snackBar.open('Engine successfully updated.', 'Close', {
                             duration: 3000,
                         });
+                        this.router.navigate(['/engines'], {
+                            replaceUrl: true
+                        });
                         return EngineActions.updateEngineSuccess({ engine });
                     }),
                     catchError(({ error }) => {
@@ -105,7 +108,7 @@ export class EngineEffects {
                             duration: 3000,
                         });
                         }
-                        this.router.navigate(['home'], { replaceUrl: true });
+                        this.router.navigate(['engines'], { replaceUrl: true });
                         return EngineActions.deleteEngineSuccess({ engineId: id });
                     }),
                     catchError(({ error }) => {
