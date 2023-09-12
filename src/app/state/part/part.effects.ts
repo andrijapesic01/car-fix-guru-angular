@@ -47,6 +47,22 @@ export class PartEffects {
         )
     );
 
+    loadCertainNumOfParts$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(PartActions.loadCertainNumOfParts),
+            mergeMap(({ numOfParts }) =>
+                this.partService.getCertainNumOfParts(numOfParts).pipe(
+                    map((parts: Part[]) => {
+                        return PartActions.loadCertainNumOfPartsSuccess({ parts });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
+
     addPart$ = createEffect(() => 
         this.action$.pipe(
             ofType(PartActions.addPart),
@@ -115,19 +131,19 @@ export class PartEffects {
         )
     );
 
-    /* loadPartCategories$ = createEffect(() =>
+    stringSearch$ = createEffect(() => 
         this.action$.pipe(
-            ofType(PartActions.loadPart),
-            mergeMap(({ partId }) =>
-                this.partService.getPartById(partId).pipe(
-                    map((part: Part) => {
-                        return PartActions.loadPartSuccess({ part });
+            ofType(PartActions.stringSearch),
+            mergeMap(({ searchString }) => {
+                return this.partService.searchPartsByString(searchString).pipe(
+                    map((parts: Part[]) => {
+                        return PartActions.stringSearchSuccess({ parts });
                     }),
                     catchError(({ error }) => {
                         return of({ type: error.message });
                     })
                 )
-            )
+            })
         )
-    ); */
+    )
 }

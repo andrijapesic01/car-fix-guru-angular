@@ -5,7 +5,7 @@ import { catchError, map, mergeMap, of } from "rxjs";
 import { PartsService } from "src/app/services/parts.service";
 import * as PartCategoryActions from 'src/app/state/part-categories/part-categories.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PartCategory } from "src/app/models/part-category.model";
+import { PartCategory } from "src/app/models/part-category/part-category.model";
 
 @Injectable()
 export class PartCategoryEffects {

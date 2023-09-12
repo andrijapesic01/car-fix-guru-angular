@@ -8,8 +8,8 @@
   </div>
   <div class="search-bar">
     <div class="search-field">
-      <input type="text" class="search-bar-input" placeholder="Search for articles...">
-      <button mat-raised-button color="primary" class="search-button">
+      <input type="text" class="search-bar-input" placeholder="Search for articles..." [(ngModel)]="searchInput">
+      <button mat-raised-button color="primary" class="search-button" (click)="stringSearchClick()">
         <mat-icon class="search-icon">search</mat-icon>
         <span class="button-text">Search</span>
       </button>

@@ -36,7 +36,7 @@
                 </div>
                 <p *ngIf="part.quantity > 0" class="in-stock">*In Stock</p>
                 <p *ngIf="part.quantity === 0" class="out-of-stock">*Out of Stock</p>
-                <button mat-raised-button class="buy-button" color="accent" [disabled]="part.quantity === 0 || selectedQuantity === 0" (click)="addToCart(part)">
+                <button mat-raised-button class="buy-button" color="accent" [disabled]="part.quantity === 0 || selectedQuantity === 0" (click)="addToCart(part, selectedQuantity)">
                     Buy <mat-icon class="cart-icon">shopping_cart</mat-icon>
                 </button>
             </div>
@@ -45,6 +45,7 @@
             <button mat-raised-button class="raised-button" color="primary" (click)="btnUpdateClick()">Update</button>
             <button mat-raised-button class="raised-button" color="accent" (click)="btnDeleteClick()">Delete</button>
         </div>
+        <button mat-raised-button color="accent" class="cart-button" (click)="cartClick()" >cart</button>
     </div>
     <div *ngIf="!part" class="part-details not-found">
         <h2>Ups...The part does not exist!</h2>

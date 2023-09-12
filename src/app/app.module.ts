@@ -8,7 +8,7 @@ import { PartCategoriesComponent } from './components/part-categories/part-categ
 import { PartCategoryCardComponent } from './components/part-category-card/part-category-card.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PartCategoryCardService } from './services/part-category-card.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EnginesService } from './services/engines.service';
 import { AngularMaterialModule } from './angular-material.module';
@@ -53,6 +53,14 @@ import { UpdateEngineComponent } from './components/update-engine/update-engine.
 import { UpdatePartComponent } from './components/update-part/update-part.component';
 import { CarsComponent } from './components/cars/cars.component';
 import { UpdateCarComponent } from './components/update-car/update-car.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { cartReducer } from './state/cart/cart.reducer';
+import { CartEffects } from './state/cart/cart.effects';
+import { LocalStorageService } from './services/local-storage.service';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { InterceptorService } from './auth/interceptor';
+import { UserEffects } from './state/user/user.effects';
+import { userReducer } from './state/user/user.reducer';
 
 
 @NgModule({
@@ -83,6 +91,7 @@ import { UpdateCarComponent } from './components/update-car/update-car.component
     UpdatePartComponent,
     CarsComponent,
     UpdateCarComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,10 +107,14 @@ import { UpdateCarComponent } from './components/update-car/update-car.component
     AngularFireStorageModule,
     /* StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer }),
     EffectsModule.forRoot([PartEffects, ArticleEffects]), */
-    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer, car: carReducer }),
-    EffectsModule.forRoot([PartEffects, ArticleEffects, EngineEffects, PartCategoryEffects, CarEffects]),
+    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer, car: carReducer, cart: cartReducer, user: userReducer }),
+    EffectsModule.forRoot([PartEffects, ArticleEffects, EngineEffects, PartCategoryEffects, CarEffects, CartEffects, UserEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    })
   ],
-  providers: [PartCategoryCardService, EnginesService],
+  providers: [PartCategoryCardService, EnginesService, LocalStorageService, { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

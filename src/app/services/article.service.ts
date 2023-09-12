@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Article } from '../models/article/article.model';
 import { CreateModArticleDto } from '../models/article/crate-mod-article.dto';
+import { environment } from 'src/environments/environment';
+import { stringSearch } from '../state/part/part.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticlesService {
   
-    private apiUrl = 'http://localhost:3000';
+    private apiUrl = environment.api.apiUrl;
 
     constructor(private http: HttpClient) {
 
@@ -24,7 +26,6 @@ export class ArticlesService {
 
     addArticle(articleData: CreateModArticleDto) {
         const body = articleData;
-        console.log(body);
         return this.http.post<Article>(`${this.apiUrl}/articles/addArticle`, body);
     }
 
@@ -35,5 +36,9 @@ export class ArticlesService {
 
     deleteArticle(articleId: string) {
         return this.http.delete<any>(`${this.apiUrl}/articles/deleteArticle/${articleId}`);
+    }
+
+    stringSearch(searchString: string) {
+        return this.http.get<Article[]>(`${this.apiUrl}/articles/stringSearch/${searchString}`);
     }
 }

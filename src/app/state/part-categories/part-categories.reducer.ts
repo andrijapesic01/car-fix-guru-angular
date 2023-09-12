@@ -1,7 +1,7 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
 import * as PartCategoryActions from './part-categories.actions' 
-import { PartCategory } from "src/app/models/part-category.model";
+import { PartCategory } from "src/app/models/part-category/part-category.model";
 
 export interface PartCategoryState extends EntityState<PartCategory> {
     partCategories: PartCategory[],

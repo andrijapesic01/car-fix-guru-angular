@@ -34,6 +34,9 @@ export const partReducer = createReducer(
     on(PartActions.loadSearchedPartsSuccess, (state: PartState, {parts}) => {
         return adapter.setAll(parts, state)
     }),
+    on(PartActions.loadCertainNumOfPartsSuccess, (state: PartState, {parts}) => {
+        return adapter.setAll(parts, state)
+    }),
     on(PartActions.addPartSuccess, (state: PartState, { part } ) => {
         return adapter.addOne(part, state)
     }),
@@ -58,6 +61,9 @@ export const partReducer = createReducer(
     }),
     on(PartActions.deletePartSuccess, (state: PartState, { partId }) => {
         return adapter.removeOne(partId, state);
+    }),
+    on(PartActions.stringSearchSuccess, (state: PartState, { parts }) => {
+        return adapter.setAll(parts, state);
     }) 
 );
 

@@ -9,26 +9,26 @@
       <div class="item-total">Total</div>
       <div class="item-remove"></div>
     </div>
-    <div *ngIf="cartItems.length === 0" class="empty-cart-message">
+    <div *ngIf="(numOfItems$ | async) === 0" class="empty-cart-message">
         <p class="message-text">Ups... Your cart is empty. Browse our products and start shopping!</p>
     </div>
-    <div *ngFor="let item of cartItems" class="cart-item">
+    <div *ngFor="let item of cartItems$ | async" class="cart-item">
       <div class="item-image">
-        <img [src]="item.image" alt="{{ item.name }}">
+        <img [src]="item.part.imgURLs[0]" alt="{{ item.part.name }}">
       </div>
-      <div class="item-name">{{ item.name }}</div>
-      <div class="item-price">${{ item.price }}</div>
+      <div class="item-name">{{ item.part.name }}</div>
+      <div class="item-price">${{ item.part.price }}</div>
       <div class="item-quantity">
-        <input type="number" [(ngModel)]="item.quantity" (change)="updateQuantity(item)">
+        <input type="number" [(ngModel)]="item.orderQuantity" (change)="updateQuantity(item, item.orderQuantity)">
       </div>
-      <div class="item-total">${{ item.price * item.quantity }}</div>
+      <div class="item-total">${{ item.part.price * item.orderQuantity }}</div>
       <div class="item-remove">
         <button mat-button color="warn" (click)="removeItem(item)">Remove</button>
       </div>
     </div>
   </div>
-  <div class="cart-summary">
-    <h4>Grand Total: ${{ calculateGrandTotal() }}</h4>
+  <div *ngIf="(numOfItems$ | async) != 0" class="cart-summary">
+    <h4>Grand Total: ${{ grandTotal$ | async}}</h4>
     <div class="cart-buttons">
       <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
       <button mat-raised-button color="primary">Checkout</button>

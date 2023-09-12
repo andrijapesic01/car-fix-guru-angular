@@ -1,6 +1,6 @@
 import { createSelector } from "@ngrx/store";
 import { AppState } from "src/app/app.state";
-import { PartCategory } from "src/app/models/part-category.model";
+import { PartCategory } from "src/app/models/part-category/part-category.model";
 
 
 export const selectPartCategoriesFeature = createSelector(

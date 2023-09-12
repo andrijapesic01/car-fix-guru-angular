@@ -18,6 +18,15 @@ export const loadPartSuccess = createAction(
     props<{ part: Part }>()
 );
 
+export const loadCertainNumOfParts = createAction(
+    'loadCertainNumOfParts',
+    props<{ numOfParts: number}>()
+);
+export const loadCertainNumOfPartsSuccess = createAction(
+    'loadCertainNumOfPartsSuccess',
+    props<{ parts: Part[] }>()
+);
+
 export const loadSearchedParts = createAction(
     'loadSearchedParts',
     props<{ input: string, category: string, subCategory: string, car: Car}>()
@@ -53,3 +62,13 @@ export const deletePartSuccess = createAction(
     'deletePartSuccess',
     props<{ partId: string }>()
 );
+
+export const stringSearch = createAction(
+    'stringSearch',
+    props<{ searchString: string }>()
+);
+export const stringSearchSuccess = createAction(
+    'stringSearchSuccess',
+    props<{ parts: Part[] }>()
+);
+

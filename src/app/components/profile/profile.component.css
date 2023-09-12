@@ -1,0 +1,103 @@
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-details {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.user-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.change-password h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.change-pass-button {
+    text-align: center;
+}
+
+form {
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 97%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.site-management {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.management-square {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    margin: 5px;
+}
+
+.management-square img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.management-square p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.admin-panel {
+    margin-top: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.admin-panel-text {
+    margin-left: 5px;
+    font-size: 16px;
+}

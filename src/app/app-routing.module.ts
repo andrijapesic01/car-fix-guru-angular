@@ -22,6 +22,7 @@ import { EnginesComponent } from './components/engines/engines.component';
 import { UpdatePartComponent } from './components/update-part/update-part.component';
 import { CarsComponent } from './components/cars/cars.component';
 import { UpdateCarComponent } from './components/update-car/update-car.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path:'update-engine/:id', component: UpdateEngineComponent},
   {path:'update-car/:id', component: UpdateCarComponent},
   {path:'about-us', component: AboutUsComponent},
+  {path:'profile', component: ProfileComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', component: PartCategoriesComponent},
 ];

@@ -4,14 +4,12 @@ import { Article } from "src/app/models/article/article.model";
 import * as ArticleActions from './article.actions' 
 
 export interface ArticleState extends EntityState<Article> {
-    articles: Article[],
     loading: boolean;    
 }
 
 const adapter: EntityAdapter<Article> = createEntityAdapter<Article>();
 
 export const initialState: ArticleState = adapter.getInitialState({
-    articles: [],
     loading: false 
 });
 
@@ -51,5 +49,8 @@ export const articleReducer = createReducer(
     }),
     on(ArticleActions.deleteArticleSuccess, (state: ArticleState, { articleId }) => {
         return adapter.removeOne(articleId, state);
-    }) 
+    }),
+    on(ArticleActions.stringSearchArticlesSuccess, (state: ArticleState, { articles }) => {
+        return adapter.setAll(articles, state);
+    })  
 );

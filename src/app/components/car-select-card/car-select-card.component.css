@@ -51,4 +51,9 @@ mat-select {
   align-items: center;
   height: 45px;
   font-size: 17px;
+  text-align: center;
+}
+
+.button-center {
+  text-align: center;
 }

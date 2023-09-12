@@ -44,7 +44,8 @@ export class UpdateEngineComponent {
         fuelType: this.engine.fuelType,
         displacement: this.engine.displacement,
         mark: this.engine.mark,
-        power: this.engine.power
+        power: this.engine.power,
+        torque: this.engine.torque
       });
     }
   }
@@ -56,7 +57,8 @@ export class UpdateEngineComponent {
       fuelType: ['', Validators.required],
       displacement: ['', Validators.required],
       mark: ['', Validators.required],
-      power: ['', Validators.required]
+      power: ['', Validators.required],
+      torque: ['', Validators.required]
     })
   }
 

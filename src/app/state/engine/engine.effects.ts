@@ -36,9 +36,6 @@ export class EngineEffects {
             mergeMap(({ engineId }) =>
                 this.engineService.getEngineById(engineId).pipe(
                     map((engine: Engine) => {
-                        this.snackBar.open('Engine successfully created.', 'Close', {
-                            duration: 3000,
-                        });
                         return EngineActions.loadEngineSuccess({ engine });
                     }),
                     catchError(({ error }) => {

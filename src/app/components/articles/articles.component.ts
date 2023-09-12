@@ -14,6 +14,7 @@ import { selectAllArticles } from 'src/app/state/article/article.selector';
 })
 export class ArticlesComponent implements OnInit {
   articles$?: Observable<Article[]>;
+  searchInput: string = '';
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
@@ -28,5 +29,11 @@ export class ArticlesComponent implements OnInit {
 
   btnAddClick() {
     this.router.navigate(['/add-article']);
+  }
+
+  stringSearchClick() {
+    if(this.searchInput !== '') {
+      this.store.dispatch(ArticleActions.stringSearchArticles({ searchString: this.searchInput }));
+    }
   }
 }

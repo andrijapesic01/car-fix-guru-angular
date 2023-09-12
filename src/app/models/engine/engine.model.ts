@@ -7,4 +7,5 @@ export interface Engine {
     displacement: number;
     mark: string;
     power: number;
+    torque: number;
 }

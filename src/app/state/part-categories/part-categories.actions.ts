@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { PartCategory } from "src/app/models/part-category.model";
+import { PartCategory } from "src/app/models/part-category/part-category.model";
 
 
 export const loadPartCategories = createAction('loadPartCategories');

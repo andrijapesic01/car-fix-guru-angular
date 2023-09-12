@@ -1,8 +1,8 @@
 <div class="car-parts-page">
   <div class="search-bar">
     <div class="search-field">
-      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name">
-      <button mat-raised-button color="primary" class="search-button">
+      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name" [(ngModel)]="searchString">
+      <button mat-raised-button color="primary" class="search-button" (click)="stringSearchClick()">
         <mat-icon class="search-icon">search</mat-icon>
         <span class="button-text">Search</span>
       </button>
@@ -13,7 +13,7 @@
   </button>
   <div class="main-content">
     <div class="left-column">
-      <app-car-select-card [collapsed]="false"></app-car-select-card>
+      <app-car-select-card></app-car-select-card>
     </div>
 
     <div class="right-column">

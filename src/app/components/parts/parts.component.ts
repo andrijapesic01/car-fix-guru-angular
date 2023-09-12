@@ -22,6 +22,7 @@ export class PartsComponent implements OnInit {
 
   parts$?: Observable<Part[]>;
   partsCount$?: Observable<number>;
+  searchString: string = '';
   /* public parts: Part[] = [{ id: "1", name: "Oil Filter", manufacturer: "MAHLE", category: "Filter", subCategory: "Oil filter", 
   imgURLs: ["./assets/part-images/mahle-oil-filter.jpg"], referenceNumber: "OX 143 D", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 10, price:9.76},
   { id: "2", name: "Brake Discs", manufacturer: "Brembo", category: "Brake", subCategory: "Brake discs", 
@@ -54,11 +55,23 @@ export class PartsComponent implements OnInit {
     console.log("Implement page change");
   }
 
-  partCardClick(part: Part) {
+  /* partCardClick(part: Part) {
     const navigationExtras: NavigationExtras = {
       state: { part: part}
     };
     this.router.navigate(['/part'], navigationExtras);
+  } */
+
+  stringSearchClick() {
+    if(this.searchString !== '') {
+      console.log(this.searchString);
+      this.store.dispatch(PartActions.stringSearch({ searchString: this.searchString }));
+      //this.parts$
+    }
+  }
+
+  partCardClick(part: Part) {
+    this.router.navigate(['/part/' + part.id]);
   }
 
   btnAddClick() {

@@ -53,3 +53,12 @@ export const deleteArticleSuccess = createAction(
     'deleteArticleSuccess',
     props<{ articleId: string }>()
 );
+
+export const stringSearchArticles = createAction(
+    'stringSearchArticles',
+    props<{ searchString: string }>()
+);
+export const stringSearchArticlesSuccess = createAction(
+    'stringSearchArticlesSuccess',
+    props<{ articles: Article[] }>()
+);

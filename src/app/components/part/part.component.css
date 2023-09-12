@@ -129,3 +129,9 @@
     margin: 5px;
     width: 120px;
 }
+
+.cart-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}

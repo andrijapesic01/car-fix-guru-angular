@@ -15,9 +15,7 @@
     <div class="right-column">
       <a class="parts-text">Parts You may be interested in</a>
       <div class="part-cards">
-        <app-part-card></app-part-card>
-        <app-part-card></app-part-card>
-        <app-part-card></app-part-card>
+        <app-part-card *ngFor="let part of recomandedParts" [part]="part"></app-part-card>
       </div>
     </div>
   </div>

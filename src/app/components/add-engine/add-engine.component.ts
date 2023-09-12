@@ -32,7 +32,8 @@ export class AddEngineComponent implements OnInit {
       fuelType: ['', Validators.required],
       displacement: ['', Validators.required],
       mark: ['', Validators.required],
-      power: ['', Validators.required]
+      power: ['', Validators.required],
+      torque: ['', Validators.required]
     })
   }
 

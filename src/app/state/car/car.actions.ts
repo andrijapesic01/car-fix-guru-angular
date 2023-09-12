@@ -52,3 +52,18 @@ export const deleteCarSuccess = createAction(
     'deleteCarSuccess',
     props<{ carId: string }>()
 );
+
+export const setSelectedMake = createAction(
+    'setSelectedMake',
+    props<{ brand: string}>()
+)
+
+export const setSelectedCarId = createAction(
+    'setSelectedCarId',
+    props<{ carId: string }>()
+)
+
+export const setSelectedEngineId = createAction(
+    'setSelectedEngineId',
+    props<{ engineId: string }>()
+)

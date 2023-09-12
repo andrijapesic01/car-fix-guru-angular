@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
+import { CartItem } from 'src/app/models/cart-item/cart-item.model';
 import { Part } from 'src/app/models/part/part.model';
 import * as PartActions from 'src/app/state/part/part.actions';
 import { selectPartById } from 'src/app/state/part/part.selector';
+import * as CartActions from 'src/app/state/cart/cart.actions';
+import { v4 as uuidv4 } from 'uuid';
+import { selectAllCartItems } from 'src/app/state/cart/cart.selector';
 
 @Component({
   selector: 'app-part',
@@ -28,17 +32,24 @@ export class PartComponent implements OnInit {
       });
   }
 
-  addToCart(part: Part): void {
-    // Implement your addToCart logic here
+  addToCart(part: Part, orderQuantity: number): void {
+    const cartItem : CartItem = {
+      id: uuidv4(),
+      part: part,
+      orderQuantity: orderQuantity
+    }
+    this.store.dispatch(CartActions.addToCart({cartItem: cartItem}));
   }
 
   decreaseQuantity(): void {
+    //Reducer
     if (this. part && this.selectedQuantity > 1) {
       this.selectedQuantity--;
     }
   }
 
   increaseQuantity(): void {
+    //reducer
     if (this.part && this.selectedQuantity < this.part.quantity) {
       this.selectedQuantity++;
     }
@@ -59,5 +70,9 @@ export class PartComponent implements OnInit {
         this.store.dispatch(PartActions.deletePart({ partId: this.part.id }));
       }
     }
+  }
+
+  cartClick() {
+    this.router.navigate(['/cart']);
   }
 }

@@ -4,14 +4,14 @@ import { Engine } from "src/app/models/engine/engine.model";
 import * as EngineActions from './engine.actions' 
 
 export interface EngineState extends EntityState<Engine> {
-    engines: Engine[],
+    //engines: Engine[],
     loading: boolean;    
 }
 
 const adapter: EntityAdapter<Engine> = createEntityAdapter<Engine>();
 
 export const initialState: EngineState = adapter.getInitialState({
-    engines: [],
+    //engines: [],
     loading: false 
 });
 

@@ -1,33 +1,40 @@
 <mat-card class="car-selector-card">
   <div class="title">
     <mat-icon class="title-icon">directions_car</mat-icon>
-    <h3 class="title-text"> SELECT CAR TO SEARCH FOR PARTS</h3>
+    <h3 class="title-text"> PLEASE SELECT YOUR CAR</h3>
   </div>
   
   <form [formGroup]="carForm">
     <mat-form-field class="field">
       <mat-label>Make:</mat-label>
-      <mat-select formControlName="selectedMake">
+      <mat-select formControlName="selectedMake" (selectionChange)="onSelectMakeChange()">
         <mat-option *ngFor="let make of makes" [value]="make">{{ make }}</mat-option>
       </mat-select>
     </mat-form-field>
   
     <mat-form-field class="field">
       <mat-label>Model:</mat-label>
-      <mat-select formControlName="selectedModel">
-        <mat-option *ngFor="let model of models" [value]="model">{{ model }}</mat-option>
+      <mat-select formControlName="selectedModel" (selectionChange)="onSelectModelChange()">
+        <mat-option *ngFor="let car of cars" [value]="car">
+          {{ car.model + " "+ car.generation + " " + car.category + " (" + car.yearFrom + "-" + car.yearTo + ")" }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
     
     <mat-form-field class="field">
       <mat-label>Engine:</mat-label>
-      <mat-select formControlName="selectedEngine">
-        <mat-option *ngFor="let engine of engines" [value]="engine">{{ engine }}</mat-option>
+      <mat-select formControlName="selectedEngine" (selectionChange)="onSelectEngineChange()">
+        <mat-option *ngFor="let engine of engines" [value]="engine.id">
+          {{ engine.code + " " + engine.configuration + " " + engine.displacement + "l " + engine.mark + " ("  
+            + engine.fuelType + ") " + engine.power + "kW " + engine.torque + "Nm"  }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
     
-    <button mat-raised-button class="search-button" color="primary" type="submit">
-      Search
-    </button>
+    <div class="button-center">
+      <button mat-raised-button class="search-button" color="primary" type="submit">
+        Search
+      </button>
+    </div>
   </form>
 </mat-card>

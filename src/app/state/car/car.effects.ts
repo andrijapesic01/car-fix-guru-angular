@@ -55,9 +55,6 @@ export class CarEffects {
                         this.snackBar.open('Car successfully added!', 'Okay', {
                             duration: 5000,
                         });
-                        this.router.navigate(['/add-car'], {
-                            replaceUrl: true,
-                        });
                         this.router.navigate(['/cars'], { replaceUrl: true });
                         return CarActions.addCarSuccess({ car: car });
                     }),

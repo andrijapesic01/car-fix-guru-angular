@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CreateModPartDto } from '../models/part/create-mod-part.dto';
 import { Part } from '../models/part/part.model';
 import { environment } from 'src/environments/environment';
-import { PartCategory } from '../models/part-category.model';
+import { PartCategory } from '../models/part-category/part-category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +54,13 @@ export class PartsService {
 
     getPartCategories() {
         return this.http.get<PartCategory[]>(`${this.apiUrl}/part-category/partCategories`);
+    }
+
+    getCertainNumOfParts(numOfParts: number) {
+        return this.http.get<Part[]>(`${this.apiUrl}/parts/getCertainNumParts/${numOfParts}`);
+    }
+
+    searchPartsByString(searchString: string) {
+        return this.http.get<Part[]>(`${this.apiUrl}/parts/stringSearch/${searchString}`);
     }
 }

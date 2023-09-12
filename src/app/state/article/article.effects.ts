@@ -122,4 +122,20 @@ export class ArticleEffects {
         )
     );
 
+    stringSearchArticles$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(ArticleActions.stringSearchArticles),
+            mergeMap(({ searchString }) => {
+                return this.articleService.stringSearch(searchString).pipe(
+                    map((articles: Article[]) => {
+                        return ArticleActions.stringSearchArticlesSuccess({ articles });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            })
+        )
+    )
+
 }

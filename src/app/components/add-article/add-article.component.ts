@@ -77,7 +77,7 @@ export class AddArticleComponent implements OnInit {
     if (this.articleForm.valid) {
       const articleData: CreateModArticleDto = this.articleForm.value;
       articleData.imgURLs = [""];
-      articleData.userId = "clm3a3j070004va8ckpt0nujx";
+      articleData.userId = "clm7vhcie000cvan4zlo14b3f";
       this.store.dispatch(addArticle({articleData}));
     } 
     else {
