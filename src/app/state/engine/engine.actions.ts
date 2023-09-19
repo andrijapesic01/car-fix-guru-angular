@@ -43,3 +43,18 @@ export const deleteEngineSuccess = createAction(
     'deleteEngineSuccess',
     props<{ engineId: string }>()
 );
+
+export const searchEngines = createAction(
+    'searchEngines',
+    props<{ searchString: string }>()
+);
+export const searchEnginesSuccess = createAction(
+    'searchEnginesSuccess',
+    props<{ engines: Engine[] }>()
+);
+
+export const loadFuelTypes = createAction('loadFuelTypes');
+export const loadFuelTypesSuccess = createAction(
+    'loadFuelTypesSuccess',
+    props<{ fuelTypes: string[] }>()
+);

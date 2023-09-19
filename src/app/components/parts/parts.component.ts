@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, NavigationExtras } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, map } from 'rxjs';
 import { AppState } from 'src/app/app.state';
+import { PartCategory } from 'src/app/models/part-category/part-category.model';
 import { Part } from 'src/app/models/part/part.model';
+import { User } from 'src/app/models/user/user';
+import { loadPartCategories } from 'src/app/state/part-categories/part-categories.actions';
+import { selectAllPartCategories } from 'src/app/state/part-categories/part-categories.selector';
 import * as PartActions from 'src/app/state/part/part.actions';
-import { selectPartsCount, selectAllParts } from 'src/app/state/part/part.selector';
-
+import { loadPartManufacturers, loadParts, loadSearchedParts, stringSearch } from 'src/app/state/part/part.actions';
+import { selectPartsCount, selectAllParts, selectPartManufacturers, selectPartsByPage } from 'src/app/state/part/part.selector';
+import { selectUser } from 'src/app/state/user/user.selector'; 
 
 @Component({
   selector: 'app-parts',
@@ -17,34 +23,46 @@ import { selectPartsCount, selectAllParts } from 'src/app/state/part/part.select
 
 export class PartsComponent implements OnInit {
   filterForm: FormGroup;
-  pageSizeOptions: number[] = [5, 10, 15, 20];
-  pageSize = 10;
-
+  pageSizeOptions: number[] = [4, 8, 12, 16, 20];
+  pageSize: number = this.pageSizeOptions[1];
   parts$?: Observable<Part[]>;
   partsCount$?: Observable<number>;
   searchString: string = '';
-  /* public parts: Part[] = [{ id: "1", name: "Oil Filter", manufacturer: "MAHLE", category: "Filter", subCategory: "Oil filter", 
-  imgURLs: ["./assets/part-images/mahle-oil-filter.jpg"], referenceNumber: "OX 143 D", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 10, price:9.76},
-  { id: "2", name: "Brake Discs", manufacturer: "Brembo", category: "Brake", subCategory: "Brake discs", 
-  imgURLs: ["./assets/part-images/brembo-brake-disc.jpg"], referenceNumber: "AF001", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 5, price:144},
-  { id: "3", name: "Engine Oil SAE 5W-30", manufacturer: "Motul", category: "Oils and fluids", subCategory: "Engine oil", 
-  imgURLs: ["./assets/part-images/motul-oil-5w30.jpg"], referenceNumber: "X8100", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 0, price:64.3},
-  { id: "4", name: "Engine Oil SAE 5W-30", manufacturer: "Motul", category: "Oils and fluids", subCategory: "Engine oil", 
-  imgURLs: ["./assets/part-images/motul-oil-5w30.jpg"], referenceNumber: "X8100+", carIDs: [], engineIDs:[], transmissionIDs:[], quantity: 5, price:64.3},
-]; */
-//totalParts = this.parts.length;
+  categories!: PartCategory[];
+  subcategories: string[] = [];
+  manufacturers: string[] = [];
+  selectedCategory!: PartCategory;
+  selectedSubCategory: string = "";
+  selectedManufacturer: string = "";
+  carId: string = ""; engineId: string = "";
+  filtersAplied: boolean = false;
+  user!: User | null;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private store: Store<AppState>) {
+
     this.filterForm = this.formBuilder.group({
       category: false,
-      subcategory: false
+      subcategory: false,
+      manufacturer: false
     });
   }
 
   ngOnInit(): void {
     this.store.dispatch(PartActions.loadParts());
-    this.parts$ = this.store.select(selectAllParts);
     this.partsCount$ = this.store.select(selectPartsCount);
+    this.parts$ = this.store.select(selectPartsByPage(0, this.pageSize));
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    this.store.dispatch(loadPartCategories());
+    this.store.dispatch(loadPartManufacturers());
+    this.store.select(selectUser).subscribe((selectedUser) => this.user = selectedUser);
+    this.store.select(selectAllPartCategories).subscribe((partCategories) => this.categories = partCategories);
+    this.store.select(selectPartManufacturers).subscribe((selectedManufacturers) =>
+      this.manufacturers = selectedManufacturers
+    );
   }
 
   btnCartClikced() {
@@ -52,22 +70,34 @@ export class PartsComponent implements OnInit {
   }
 
   onPageChange() {
-    console.log("Implement page change");
+    const currentPage = this.paginator.pageIndex;
+    this.parts$ = this.store.select(selectPartsByPage(currentPage, this.pageSize));
   }
 
-  /* partCardClick(part: Part) {
-    const navigationExtras: NavigationExtras = {
-      state: { part: part}
-    };
-    this.router.navigate(['/part'], navigationExtras);
-  } */
+  onPageSizeChange(event: any) {
+    this.paginator.pageIndex = 0;
+    this.parts$ = this.store.select(selectPartsByPage(this.paginator.pageIndex, this.pageSize));
+  }
 
   stringSearchClick() {
-    if(this.searchString !== '') {
+    if (this.searchString !== '') {
       console.log(this.searchString);
-      this.store.dispatch(PartActions.stringSearch({ searchString: this.searchString }));
-      //this.parts$
+      this.store.dispatch(stringSearch({ searchString: this.searchString }));
     }
+  }
+
+  onCarSearchButtonClicked(eventData: [string, string]) {
+    const [carId, engineId] = eventData;
+    this.engineId = engineId;
+    this.carId = carId;
+    if (carId !== "" && engineId !== "") {
+      this.store.dispatch(loadSearchedParts({ carId, engineId, category: "", subCategory: "",
+        manufacturer: "" }));
+    }
+    else {
+      this.store.dispatch(loadParts());
+      this.parts$ = this.store.select(selectAllParts);
+    } 
   }
 
   partCardClick(part: Part) {
@@ -77,4 +107,42 @@ export class PartsComponent implements OnInit {
   btnAddClick() {
     this.router.navigate(['/add-part']);
   }
+
+  onCategoryChange() {
+    this.subcategories = [];
+    this.selectedCategory.subCategories.forEach((subCategory) => this.subcategories.push(subCategory.subCategory));
+  }
+
+  applyClick() {
+    this.filtersAplied = true;
+    let retCategory: string = '';
+    if (this.selectedCategory) {
+      retCategory = this.selectedCategory.name;
+    }
+    this.store.dispatch(PartActions.loadSearchedParts({
+      carId: this.carId,
+      engineId: this.engineId,
+      category: retCategory,
+      subCategory: this.selectedSubCategory,
+      manufacturer: this.selectedManufacturer
+    }));
+  }
+
+  resetClick() {
+    this.filtersAplied = false;
+    this.resetFilterSelectors();
+  }
+
+  resetFilterSelectors() {
+    this.selectedManufacturer = "";
+    this.store.select(selectAllPartCategories).subscribe((partCategories) => this.categories = partCategories);
+  }
+
+  getTotalPages(): number {
+    let parts = 0;
+    this.partsCount$?.subscribe((pc) => parts = pc);
+    const size = this.pageSize;
+    return Math.ceil(parts / size);
+  }
 }
+

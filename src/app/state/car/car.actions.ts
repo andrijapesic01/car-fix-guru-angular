@@ -53,17 +53,17 @@ export const deleteCarSuccess = createAction(
     props<{ carId: string }>()
 );
 
-export const setSelectedMake = createAction(
-    'setSelectedMake',
-    props<{ brand: string}>()
-)
+export const stringSearchCars = createAction(
+    'stringSearchCars',
+    props<{ searchString: string }>()
+);
+export const stringSearchCarsSuccess = createAction(
+    'stringSearchCarsSuccess',
+    props<{ cars: Car[] }>()
+);
 
-export const setSelectedCarId = createAction(
-    'setSelectedCarId',
-    props<{ carId: string }>()
-)
-
-export const setSelectedEngineId = createAction(
-    'setSelectedEngineId',
-    props<{ engineId: string }>()
-)
+export const loadCarCategories = createAction('loadCarCategories');
+export const loadCarCategoriesSuccess = createAction(
+    'loadCarCategoriesSuccess',
+    props<{ carCategories: string[] }>()
+);

@@ -1,9 +1,13 @@
 <div class="part-card" (click)="onClick()">
     <div class="part-image">
-      <img [src]="part.imgURLs[0]" alt="{{ part.name }}">
+      <img [src]="part && part.imgURLs[0] ? (imgPath + '/' + part.imgURLs[0]) : './assets/part.png'" alt="{{ part.name }}">
     </div>
     <div class="part-details">
-      <h3>{{ part.manufacturer }} {{ part.name }}</h3>
+      <div class="spacer">
+        <h3>{{ part.manufacturer }} {{ part.name | slice:0:45 }}
+          <span *ngIf="part.name.length > 45">...</span>
+        </h3>
+      </div>
       <p class="article-no">Article No: {{ part.referenceNumber }}</p>
       <p>Price: ${{ part.price }}</p>
       <p class="stock-indicator" [ngClass]="{'in-stock': part.quantity > 0, 'out-of-stock': part.quantity === 0}">

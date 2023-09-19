@@ -1,14 +1,14 @@
 <div class="part-details-page">
-    <button mat-fab color="primary" class="fab-button" (click)="btnAddClick()">
+    <button *ngIf="user?.role === adminRole" mat-fab color="primary" class="fab-button" (click)="btnAddClick()">
         <mat-icon>add</mat-icon>
     </button>
     <div class="search-bar">
         <div class="search-field">
-          <input type="text" class="search-bar-input" placeholder="Search for parts...">
-          <button mat-raised-button color="primary" class="search-button">
-            <mat-icon class="search-icon">search</mat-icon>
-            <span class="button-text">Search</span>
-          </button>
+            <input type="text" class="search-bar-input" placeholder="Search for parts...">
+            <button mat-raised-button color="primary" class="search-button">
+                <mat-icon class="search-icon">search</mat-icon>
+                <span class="button-text">Search</span>
+            </button>
         </div>
     </div>
     <div class="outer-container">
@@ -25,27 +25,31 @@
             </div>
             <div class="buy-column">
                 <p class="price">Price: ${{ part.price }}</p>
-                <div class="quantity-picker">
+                <div *ngIf="user?.role === userRole" class="quantity-picker">
                     <button mat-icon-button (click)="decreaseQuantity()">
                         <mat-icon>remove</mat-icon>
                     </button>
-                    <input type="number" [(ngModel)]="selectedQuantity" min="1" [max]="part.quantity" class="quantity-input">
+                    <input type="number" [(ngModel)]="selectedQuantity" min="1" [max]="part.quantity"
+                        class="quantity-input">
                     <button mat-icon-button (click)="increaseQuantity()">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>
+                <p *ngIf="user?.role === adminRole" class="price">Total quantity: {{ part.quantity }} pcs</p>
                 <p *ngIf="part.quantity > 0" class="in-stock">*In Stock</p>
                 <p *ngIf="part.quantity === 0" class="out-of-stock">*Out of Stock</p>
-                <button mat-raised-button class="buy-button" color="accent" [disabled]="part.quantity === 0 || selectedQuantity === 0" (click)="addToCart(part, selectedQuantity)">
+                <button mat-raised-button class="buy-button" color="accent"
+                    [disabled]="part.quantity === 0 || selectedQuantity === 0 || user?.role === adminRole"
+                    (click)="addToCart(part, selectedQuantity)">
                     Buy <mat-icon class="cart-icon">shopping_cart</mat-icon>
                 </button>
             </div>
         </div>
-        <div class="buttons-container">
+        <div *ngIf="user?.role == adminRole" class="buttons-container">
             <button mat-raised-button class="raised-button" color="primary" (click)="btnUpdateClick()">Update</button>
             <button mat-raised-button class="raised-button" color="accent" (click)="btnDeleteClick()">Delete</button>
         </div>
-        <button mat-raised-button color="accent" class="cart-button" (click)="cartClick()" >cart</button>
+        <app-cart-button *ngIf="user?.role === userRole" class="position-cart-button"></app-cart-button>
     </div>
     <div *ngIf="!part" class="part-details not-found">
         <h2>Ups...The part does not exist!</h2>

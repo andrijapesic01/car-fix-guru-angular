@@ -1,10 +1,12 @@
 <div class="image-viewer">
     <div class="main-image">
-      <img [src]="images[currentImageIndex]" alt="Main Image" width="250" height="250">
+      <img 
+        [src]="(images[currentImageIndex] ? imgPath + '/' + images[currentImageIndex] : '/assets/part.png')"
+        alt="Main Image" width="275" height="275">
     </div>
     <div class="image-previews">
       <div *ngFor="let image of images; let i = index" [class.selected]="i === currentImageIndex" (click)="currentImageIndex = i">
-        <img [src]="image" alt="Preview Image" width="50" height="50">
+        <img [src]="imgPath + (image ? '/' + image : '/assets/part.png')" alt="Preview Image" width="50" height="50">
       </div>
     </div>
     <div class="navigation-arrows">

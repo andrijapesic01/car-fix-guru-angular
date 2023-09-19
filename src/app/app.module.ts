@@ -32,7 +32,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -61,6 +61,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { InterceptorService } from './auth/interceptor';
 import { UserEffects } from './state/user/user.effects';
 import { userReducer } from './state/user/user.reducer';
+import { CartButtonComponent } from './components/cart-button/cart-button.component';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { userReducer } from './state/user/user.reducer';
     CarsComponent,
     UpdateCarComponent,
     ProfileComponent,
+    CartButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,7 @@ import { userReducer } from './state/user/user.reducer';
     AngularFireStorageModule,
     /* StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer }),
     EffectsModule.forRoot([PartEffects, ArticleEffects]), */
-    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer, car: carReducer, cart: cartReducer, user: userReducer }),
+    StoreModule.forRoot<AppState>({ part: partReducer, article: articleReducer, engine: engineReducer, partCategory: partCategoryReducer, car: carReducer, cart: cartReducer, user: userReducer}),
     EffectsModule.forRoot([PartEffects, ArticleEffects, EngineEffects, PartCategoryEffects, CarEffects, CartEffects, UserEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

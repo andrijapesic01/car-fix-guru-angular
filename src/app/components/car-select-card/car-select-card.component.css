@@ -1,7 +1,8 @@
 .car-selector-card {
   border: 1px solid #ccc;
+  border-radius: 0;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 20px;
   cursor: pointer;
   width: 350px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -49,11 +50,12 @@ mat-select {
   cursor: pointer;
   display: flex;
   align-items: center;
-  height: 45px;
-  font-size: 17px;
+  height: 40px;
+  font-size: 14px;
   text-align: center;
+  width: 100%;
 }
 
-.button-center {
-  text-align: center;
+.reset {
+  margin-top: 10px;
 }

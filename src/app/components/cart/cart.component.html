@@ -31,7 +31,7 @@
     <h4>Grand Total: ${{ grandTotal$ | async}}</h4>
     <div class="cart-buttons">
       <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
-      <button mat-raised-button color="primary">Checkout</button>
+      <button mat-raised-button color="primary" (click)="checkoutClick()">Checkout</button>
     </div>
   </div>
 </div>

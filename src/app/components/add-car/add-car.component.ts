@@ -7,7 +7,8 @@ import { AppState } from 'src/app/app.state';
 import { Car } from 'src/app/models/car/car.model';
 import { CreateModCarDto } from 'src/app/models/car/create-mod-car.dto';
 import { Engine } from 'src/app/models/engine/engine.model';
-import { addCar } from 'src/app/state/car/car.actions';
+import { addCar, loadCarCategories } from 'src/app/state/car/car.actions';
+import { selectCarCategories } from 'src/app/state/car/car.selector';
 import { loadEngines } from 'src/app/state/engine/engine.actions';
 import { selectAllEngines } from 'src/app/state/engine/engine.selector';
 import { environment } from 'src/environments/environment';
@@ -21,10 +22,11 @@ export class AddCarComponent implements OnInit {
   
   //engines: Engine[] = [{id: "1", code: "12", configuration: "I4", fuelType: "Petrol", displacement: 2.2, mark: "TFSI", power: 150}];
   //carData!: CreateModCarDto;
+  //categories: string[] = ["Saloon", "Hatchback", "Estate", "Suv", "Sports car"];
   selectedEngines: string[] = [];  
   engines: Engine[] = [];
   carForm!: FormGroup;
-  categories: string[] = ["Saloon", "Hatchback", "Estate", "Suv", "Sports car"];
+  categories: string[] = [];
   selectedCategory!: string;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private snackBar: MatSnackBar,
@@ -32,9 +34,9 @@ export class AddCarComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadEngines());
-    this.store.select(selectAllEngines).subscribe((items) => {
-      this.engines = items;
-    });
+    this.store.dispatch(loadCarCategories());
+    this.store.select(selectAllEngines).subscribe((selectedEngines) => this.engines = selectedEngines);
+    this.store.select(selectCarCategories).subscribe((selectedCategories) => this.categories = selectedCategories);
 
     this.initializeForm();
   }

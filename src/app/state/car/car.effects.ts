@@ -118,4 +118,36 @@ export class CarEffects {
         )
     );
 
+    searchCars$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(CarActions.stringSearchCars),
+            mergeMap(({searchString}) => 
+                this.carService.stringSearchCars(searchString).pipe(
+                    map((cars: Car[]) => {
+                        return CarActions.stringSearchCarsSuccess({ cars });
+                    }),
+                    catchError(({error}) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    )
+
+    loadCarCategories$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(CarActions.loadCarCategories),
+            mergeMap(() => 
+                this.carService.getCarCategories().pipe(
+                    map((carCategories: string[]) => {
+                        return CarActions.loadCarCategoriesSuccess({ carCategories });
+                    }),
+                    catchError(({error}) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    )
+
 }

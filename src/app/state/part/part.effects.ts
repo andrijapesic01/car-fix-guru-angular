@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap, of } from "rxjs";
-import { CreateModPartDto } from "src/app/models/part/create-mod-part.dto";
 import { Part } from "src/app/models/part/part.model";
 import { PartsService } from "src/app/services/parts.service";
 import * as PartActions from 'src/app/state/part/part.actions';
@@ -15,15 +14,15 @@ export class PartEffects {
 
     }
 
-    loadParts$ = createEffect(() => 
+    loadParts$ = createEffect(() =>
         this.action$.pipe(
             ofType(PartActions.loadParts),
-            mergeMap(() => 
+            mergeMap(() =>
                 this.partService.getAllParts().pipe(
                     map((parts: Part[]) => {
                         return PartActions.loadPartsSuccess({ parts });
                     }),
-                    catchError(({error}) => {
+                    catchError(({ error }) => {
                         return of({ type: error.message });
                     })
                 )
@@ -63,16 +62,16 @@ export class PartEffects {
         )
     );
 
-    addPart$ = createEffect(() => 
+    addPart$ = createEffect(() =>
         this.action$.pipe(
             ofType(PartActions.addPart),
-            mergeMap(({partData}) => 
+            mergeMap(({ partData }) =>
                 this.partService.addPart(partData).pipe(
                     map((part) => {
                         this.snackBar.open('Part successfully added!', 'Okay', {
-                            duration: 4000,
+                            duration: 3000,
                         });
-                        this.router.navigate(['/part/'+ part.id], {
+                        this.router.navigate(['/part/' + part.id], {
                             replaceUrl: true,
                         });
                         return PartActions.addPartSuccess({ part: part });
@@ -88,17 +87,17 @@ export class PartEffects {
         )
     );
 
-    updatePart$ = createEffect(() => 
+    updatePart$ = createEffect(() =>
         this.action$.pipe(
             ofType(PartActions.updatePart),
-            mergeMap(({ partId, partData}) => 
+            mergeMap(({ partId, partData }) =>
                 this.partService.updatePart(partId, partData).pipe(
                     map((part: Part) => {
-                        this.router.navigate(['part/'+partId], { replaceUrl: true });
+                        this.router.navigate(['part/' + partId], { replaceUrl: true });
                         return PartActions.updatePartSuccess({ part });
                     }),
                     catchError(({ error }) => {
-                        return of({ type: error.message});
+                        return of({ type: error.message });
                     })
                 )
             )
@@ -113,16 +112,16 @@ export class PartEffects {
                 return this.partService.deletePart(partId).pipe(
                     map((res) => {
                         if (res.success) {
-                        this.snackBar.open('Part successfully removed.', 'Close', {
-                            duration: 3000,
-                        });
+                            this.snackBar.open('Part successfully removed.', 'Close', {
+                                duration: 3000,
+                            });
                         }
                         this.router.navigate(['parts'], { replaceUrl: true });
                         return PartActions.deletePartSuccess({ partId: id });
                     }),
                     catchError(({ error }) => {
                         this.snackBar.open(error.message, 'Close', {
-                        duration: 3000,
+                            duration: 3000,
                         });
                         return of({ type: error.message });
                     })
@@ -131,7 +130,23 @@ export class PartEffects {
         )
     );
 
-    stringSearch$ = createEffect(() => 
+    loadSearchedParts$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(PartActions.loadSearchedParts),
+            mergeMap(({ carId, engineId, category, subCategory, manufacturer }) =>
+                this.partService.filterParts(carId, engineId, category, subCategory, manufacturer).pipe(
+                    map((parts: Part[]) => {
+                        return PartActions.loadSearchedPartsSuccess({ parts });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
+
+    stringSearch$ = createEffect(() =>
         this.action$.pipe(
             ofType(PartActions.stringSearch),
             mergeMap(({ searchString }) => {
@@ -146,4 +161,36 @@ export class PartEffects {
             })
         )
     )
+
+    /* uploadPartImages$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(PartActions.uploadPartImages),
+            mergeMap(({ images }) => {
+                return this.partService.uploadPartImages(images).pipe(
+                    map((imgURLs: string[]) => {
+                        return PartActions.uploadPartImagesSuccess({ imgURLs });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            })
+        )
+    ) */
+
+    loadPartManufacturers$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(PartActions.loadPartManufacturers),
+            mergeMap(() =>
+                this.partService.getPartManufacturers().pipe(
+                    map((manufacturers) => {
+                        return PartActions.loadPartManufacturersSuccess({ manufacturers });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
 }

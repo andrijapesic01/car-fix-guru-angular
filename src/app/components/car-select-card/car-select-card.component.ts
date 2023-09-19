@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Car } from 'src/app/models/car/car.model';
 import { Engine } from 'src/app/models/engine/engine.model';
-import { loadCars, setSelectedCarId, setSelectedEngineId, setSelectedMake } from 'src/app/state/car/car.actions';
-import { selectAllCars, selectCarBrands, selectCarsByBrand, selectSelectedCarId, selectSelectedEngineId } from 'src/app/state/car/car.selector';
+import { loadCars } from 'src/app/state/car/car.actions';
+import { selectAllCars, selectCarBrands, selectCarsByBrand } from 'src/app/state/car/car.selector';
 import { loadEngine } from 'src/app/state/engine/engine.actions';
 import { selectEngineById } from 'src/app/state/engine/engine.selector';
 
@@ -19,64 +20,36 @@ export class CarSelectCardComponent implements OnInit {
   cars: Car[] = [];
   car: Car | null = null;
   engines: Engine[] = [];
-  //@Input() collapsed: boolean = false;
-
   makes: string[] = [];
-  models: string[] = [];
-
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
-
-  }
+  engineId!: string;
+  searched: boolean = false;
+  @Output() buttonClicked = new EventEmitter<[string, string]>();
+  constructor(private fb: FormBuilder, private store: Store<AppState>, private matSnackabr: MatSnackBar) { }
 
   ngOnInit(): void {
     this.initializeForm();
-
-    //const selectedCarId = this.store.select(selectSelectedCarId);
-    //const selectedEngineId = this.store.select(selectSelectedEngineId);
-    let SelectedCarId = "";
-    let SelectedEngineId = "";
-
-    this.store.select(selectSelectedCarId).subscribe((carId) => 
-      SelectedCarId = carId
-    )
-    this.store.select(selectSelectedEngineId).subscribe((engineId) => 
-      SelectedEngineId = engineId
-    )
-    if (SelectedCarId !== "" && SelectedEngineId !== "" ) {
-      this.bindFormWithData(SelectedEngineId);
-    } else {
-      this.store.dispatch(loadCars());
-      this.store.select(selectAllCars).subscribe((selectedCars) => {
-        this.cars = selectedCars;
-      });
-      this.store.select(selectCarBrands).subscribe((carBrands) => {
-        this.makes = carBrands;
-      })
-    }
-  }
-
-  bindFormWithData(engineId: string) {
-    const tempEngine = this.engines.map((engine) => engine.id === engineId);
-    this.carForm.setValue({
-      selectedMake: this.car?.brand,
-      selectedModel: this.car?.model,
-      selectedEngine: tempEngine
+    this.store.dispatch(loadCars());
+    this.store.select(selectAllCars).subscribe((selectedCars) => {
+      this.cars = selectedCars;
+    });
+    this.store.select(selectCarBrands).subscribe((carBrands) => {
+      this.makes = carBrands;
     })
   }
 
   initializeForm() {
     this.carForm = this.fb.group({
-      selectedMake: [''],
-      selectedModel: [''],
-      selectedEngine: ['']
+      selectedMake: ['', Validators.required],
+      selectedModel: ['', Validators.required],
+      selectedEngine: ['', Validators.required]
     });
   }
 
   onSelectMakeChange() {
     this.cars = [];
     const make = this.carForm.get('selectedMake')?.value;
-    this.store.dispatch(setSelectedMake({ brand: make }));
-    this.store.select(selectCarsByBrand).subscribe((selectedCars) => {
+    //this.store.dispatch(setSelectedMake({ brand: make }));
+    this.store.select(selectCarsByBrand(make)).subscribe((selectedCars) => {
       this.cars = selectedCars;
     });
     this.engines = [];
@@ -86,7 +59,7 @@ export class CarSelectCardComponent implements OnInit {
     this.engines = [];
     this.car = this.carForm.get('selectedModel')?.value;
     if (this.car) {
-      this.store.dispatch(setSelectedCarId({ carId: this.car.id }));
+      //this.store.dispatch(setSelectedCarId({ carId: this.car.id }));
       this.car.engineIDs.forEach((engineId) => {
         this.store.dispatch(loadEngine({ engineId }));
         this.store.select(selectEngineById(engineId)).subscribe((selectedEngine) => {
@@ -98,16 +71,28 @@ export class CarSelectCardComponent implements OnInit {
     }
   }
 
-  onSelectEngineChange() {
-    const selectedEngineId = this.carForm.get('selectedEngine')?.value;
-    console.log(selectedEngineId);
-    if (selectedEngineId) {
-      this.store.dispatch(setSelectedEngineId({ engineId: selectedEngineId }));
+  onSelectCarSearchClick() {
+    if (this.carForm.valid) {
+      if (this.car) {
+        this.searched = true;
+        const carId = this.car?.id;
+        const engineId = this.carForm.controls['selectedEngine'].value;
+        this.buttonClicked.emit([carId, engineId]);
+      }
+
+    } else {
+      this.matSnackabr.open(
+        "Please fill all fields", "Close",
+        { duration: 3000 }
+      )
     }
   }
 
-  /* toggleCollapse() {
-    this.collapsed = !this.collapsed;
-  } */
+  onResetClick() {
+    if(this.searched) {
+      this.searched = false;
+      this.buttonClicked.emit(["", ""]);
+    }
+  }
 }
 

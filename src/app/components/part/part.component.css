@@ -4,14 +4,14 @@
     align-items: center;
     padding: 20px;
 }
-  
+
 .search-bar {
     width: 100%;
     max-width: 800px;
     margin-bottom: 30px;
     text-align: center;
 }
-  
+
 .search-bar input {
     width: 600px;
     height: 30px;
@@ -28,7 +28,7 @@
     border: 1px solid gray;
     padding: 20px;
 }
-  
+
 .part-images {
     max-width: 100%;
     display: flex;
@@ -41,7 +41,7 @@
     max-height: 100px;
     object-fit: contain;
 }
-  
+
 .part-details {
     text-align: center;
 }
@@ -60,13 +60,15 @@
     padding-bottom: 6px;
     padding-left: 90px;
 }
-  
+
 .buy-column {
     text-align: center;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 200px;
+    margin-left: 30px;
 }
 
 .buy-button {
@@ -75,7 +77,7 @@
     width: 120px;
     margin-top: 10px;
 }
-  
+
 .quantity-picker {
     display: flex;
     align-items: center;
@@ -96,22 +98,22 @@
 }
 
 .out-of-stock {
-  color: red;
-  font-size: 18px;
+    color: red;
+    font-size: 18px;
 }
 
 .price {
-  font-size: 20px;
+    font-size: 20px;
 }
 
-.part-details.not-found{
+.part-details.not-found {
     margin-top: 100px;
 }
 
 .fab-button {
     position: fixed;
-    top: 80px; 
-    right: 15px; 
+    top: 80px;
+    right: 15px;
     z-index: 999;
 }
 
@@ -131,7 +133,18 @@
 }
 
 .cart-button {
+    background-color: #da1775;
     position: absolute;
     bottom: 20px;
     right: 20px;
+}
+
+.cart-icon {
+    color: white;
+}
+
+.position-cart-button {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
 }

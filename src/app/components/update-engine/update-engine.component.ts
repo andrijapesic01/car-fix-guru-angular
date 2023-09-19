@@ -6,8 +6,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { CreateModEngineDto } from 'src/app/models/engine/create-mod-engine-dto';
 import { Engine } from 'src/app/models/engine/engine.model';
-import { loadEngine, updateEngine } from 'src/app/state/engine/engine.actions';
-import { selectEngineById } from 'src/app/state/engine/engine.selector';
+import { loadEngine, loadFuelTypes, updateEngine } from 'src/app/state/engine/engine.actions';
+import { selectEngineById, selectFuelTypes } from 'src/app/state/engine/engine.selector';
 
 @Component({
   selector: 'app-update-engine',
@@ -23,15 +23,15 @@ export class UpdateEngineComponent {
 
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private store: Store<AppState>,
     private route: ActivatedRoute) {
-    
+
   }
 
-  ngOnInit() : void {
+  ngOnInit(): void {
     this.route.params.subscribe((params) => this.engineId = params['id']);
-      this.store.dispatch(loadEngine({ engineId: this.engineId}));
-      this.store.select(selectEngineById(this.engineId)).subscribe((selectedEngine) => {
-        this.engine = selectedEngine;
-      });
+    this.store.dispatch(loadFuelTypes());
+    this.store.dispatch(loadEngine({ engineId: this.engineId }));
+    this.store.select(selectFuelTypes).subscribe((selectedFuelTypes) => this.fuelTypes = selectedFuelTypes);
+    this.store.select(selectEngineById(this.engineId)).subscribe((selectedEngine) => this.engine = selectedEngine);
     this.initializeForm();
     this.patchFormValues();
   }
@@ -50,7 +50,7 @@ export class UpdateEngineComponent {
     }
   }
 
-  initializeForm() : void {
+  initializeForm(): void {
     this.engineForm = this.formBuilder.group({
       code: ['', Validators.required],
       configuration: ['', Validators.required],
@@ -63,10 +63,10 @@ export class UpdateEngineComponent {
   }
 
   btnSaveClick() {
-    if(this.engineForm.valid){
-      const updateData : CreateModEngineDto = this.engineForm.value;
-      this.store.dispatch(updateEngine({ engineId: this.engineId, engineData: updateData}))
+    if (this.engineForm.valid) {
+      const updateData: CreateModEngineDto = this.engineForm.value;
+      this.store.dispatch(updateEngine({ engineId: this.engineId, engineData: updateData }))
     }
   }
-  
+
 }

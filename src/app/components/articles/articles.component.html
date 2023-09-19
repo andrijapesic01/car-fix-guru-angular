@@ -16,14 +16,26 @@
     </div>
   </div>
   <div class="articles-container">
-    <div class="car-select">    
-      <app-car-select-card></app-car-select-card>
+    <div class="car-select">
+      <app-car-select-card (buttonClicked)="onCarSearchButtonClicked($event)"></app-car-select-card>
     </div>
     <div *ngIf="articles$" class="articles-list">
       <div class="article-card" *ngFor="let article of articles$ | async">
-          <h3>{{ article.headline }}</h3>
-          <p>{{ article.description }}</p>
-          <button mat-raised-button color="accent" (click)="btnReadMoreClick(article.id)">Read More</button>
+        <h3>{{ article.headline }}</h3>
+        <p class="description">{{ article.description }}</p>
+        <button mat-raised-button color="accent" (click)="btnReadMoreClick(article.id)">Read More</button>
+      </div>
+      <div class="page-selector" *ngIf="getTotalPages() > 1">
+        <div>
+          <button mat-raised-button *ngIf="pageNumber > 1" class="page-button" color="primary" (click)="onPageChange(false)"> &lt; Previous</button>
+          <input class="page-number" type="text" [(ngModel)]="pageNumber">
+        </div>
+        <div class="page-number-text"> of {{ getTotalPages() }}</div>
+        <div>
+          <button mat-raised-button *ngIf="pageNumber < getTotalPages()" class="page-button" color="primary" (click)="onPageChange(true)">Next &gt;</button>
+        </div>
       </div>
     </div>
+    <div *ngIf="!articles$" class="no-articles">NO ARTICLES FOUND!</div>
+  </div>
 </div>

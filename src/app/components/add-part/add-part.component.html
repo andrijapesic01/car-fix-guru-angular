@@ -2,12 +2,12 @@
   <div class="part-form">
     <form [formGroup]="partForm">
       <div class="form-group">
-        <label for="name">Part name:</label>
-        <input type="text" id="name" name="name" class="form-control" formControlName="name">
-      </div>
-      <div class="form-group">
         <label for="manufacturer">Manufacturer:</label>
         <input type="text" id="manufacturer" name="manufacturer" class="form-control" formControlName="manufacturer">
+      </div>
+      <div class="form-group">
+        <label for="name">Part name:</label>
+        <input type="text" id="name" name="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
         <label for="category">Category:</label>
@@ -26,15 +26,18 @@
         <input type="text" id="referenceNumber" name="referenceNumber" class="form-control" formControlName="referenceNumber">
       </div>
       <div class="form-group">
-        <label for="engines">Engines:</label>
-        <ng-select class="custom-select" name="selectedEngines" formControlName="engineIDs" [multiple]="true" [(ngModel)]="selectedEngines">
-          <ng-option *ngFor="let engine of engines" [value]="engine.id">{{ engine.code }}</ng-option>
+        <label for="cars">Cars:</label>
+        <ng-select class="custom-select" name="selectedCars" formControlName="carIDs" [multiple]="true">
+          <ng-option *ngFor="let car of cars" [value]="car.id">
+            {{ car.brand + " " +  car.model + " " +  car.generation + " " + car.category + " (" + 
+              + car.yearFrom + "-" + car.yearTo +")"}}
+            </ng-option>
         </ng-select>
       </div>
       <div class="form-group">
-        <label for="cars">Cars:</label>
-        <ng-select class="custom-select" name="selectedCars" formControlName="carIDs" [multiple]="true">
-          <ng-option *ngFor="let car of cars" [value]="car.id">{{ car.brand }}{{ car.model }}</ng-option>
+        <label for="engines">Engines:</label>
+        <ng-select class="custom-select" name="selectedEngines" formControlName="engineIDs" [multiple]="true">
+          <ng-option *ngFor="let engine of engines" [value]="engine.id">{{ engine.code }}</ng-option>
         </ng-select>
       </div>
       <div class="form-group">

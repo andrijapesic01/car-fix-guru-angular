@@ -9,13 +9,13 @@
     padding: 20px;
     background-color: #fff;
     text-align: center;
-    width: 400px;
-    margin-top: 50px;
+    width: 520px;
+    margin-top: 30px;
 }
   
 .car-icon {
     max-width: 130px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
   
 .form-group {
@@ -23,7 +23,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
   
 .label {
@@ -32,7 +32,7 @@
 }
   
 .form-control {
-    width: 250px;
+    width: 410px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -40,20 +40,16 @@
   
 button {
     margin-top: 10px;
-    width: 30%;
+    width: 25%;
 }
 
 .select {
-    width: 268px;
+    width: 428px;
 }
 
-.ng-select.custom {
-    border:2px solid black;
-    min-height: 30px;
-    width: 150px;
-    border-radius: 4px;
+.custom-select {
+    background-color: rgb(226, 225, 225);
+    width: 428px;
+    height: 100px;
 }
-.ng-select.custom .ng-select-container  {            
-    min-height: 40px;
-    border-radius: 0;
-}
+

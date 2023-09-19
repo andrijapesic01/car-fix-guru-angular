@@ -46,6 +46,30 @@ export class ArticleEffects {
         )
     );
 
+    /* addArticle$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(ArticleActions.addArticle),
+            mergeMap(({articleData}) => 
+                this.articleService.addArticle(articleData).pipe(
+                    map((article) => {
+                        this.snackBar.open('Article successfully added!', 'Okay', {
+                            duration: 5000,
+                        });
+                        this.router.navigate(['/articles'], {
+                            replaceUrl: true,
+                        });
+                        return ArticleActions.addArticleSuccess({ article: article });
+                    }),
+                    catchError(({ error }) => {
+                        this.snackBar.open('Error occured! Adding article failed!', 'Close', {
+                            duration: 3000,
+                        });
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    ); */
     addArticle$ = createEffect(() => 
         this.action$.pipe(
             ofType(ArticleActions.addArticle),
@@ -78,7 +102,7 @@ export class ArticleEffects {
                 this.articleService.updateArticle(articleId, articleData).pipe(
                     map((article: Article) => {
                         this.snackBar.open('Article successfully updated!', 'Okay', {
-                            duration: 4000,
+                            duration: 3000,
                         });
                         this.router.navigate(['/article/' + articleId], {
                             replaceUrl: true,
@@ -95,6 +119,30 @@ export class ArticleEffects {
             )
         )
     );
+    /* updateArticle$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(ArticleActions.updateArticle),
+            mergeMap(({ articleId, articleData}) => 
+                this.articleService.updateArticle(articleId, articleData).pipe(
+                    map((article: Article) => {
+                        this.snackBar.open('Article successfully updated!', 'Okay', {
+                            duration: 4000,
+                        });
+                        this.router.navigate(['/article/' + articleId], {
+                            replaceUrl: true,
+                        });
+                        return ArticleActions.updateArticleSuccess({ article });
+                    }),
+                    catchError(({ error }) => {
+                        this.snackBar.open('Error occured! Updating article failed!', 'Close', {
+                            duration: 3000,
+                        });
+                        return of({ type: error.message});
+                    })
+                )
+            )
+        )
+    ); */
 
     deleteArticle$ = createEffect(() =>
         this.action$.pipe(
@@ -138,4 +186,35 @@ export class ArticleEffects {
         )
     )
 
+    filterArticlesByCar$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(ArticleActions.filterArticlesByCar),
+            mergeMap(({ carId, engineId }) => {
+                return this.articleService.filterArticlesByCar(carId, engineId).pipe(
+                    map((articles: Article[]) => {
+                        return ArticleActions.filterArticlesByCarSuccess({ articles });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            })
+        )
+    )
+  
+    loadNewestArticles$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(ArticleActions.loadNewestArticles),
+            mergeMap(() => 
+                this.articleService.getNewestArticles().pipe(
+                    map((articles: Article[]) => {
+                        return ArticleActions.loadNewestArticlesSuccess({ articles });
+                    }),
+                    catchError(({error}) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    )        
 }

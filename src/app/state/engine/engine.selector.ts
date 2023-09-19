@@ -23,3 +23,8 @@ export const selectAllEngines = createSelector(selectEnginesFeature, (engines) =
         .filter((engine) => engine != null)
         .map((engine) => <Engine>engine)
 );
+
+export const selectFuelTypes = createSelector(
+    selectEnginesFeature,
+    (state) => state.fuelTypes
+);

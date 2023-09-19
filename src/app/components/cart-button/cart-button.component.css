@@ -1,0 +1,12 @@
+.cart-button {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    position: relative;
+    overflow: visible;
+}
+
+.mat-icon {
+    color: white;
+    font-size: 20px;
+}

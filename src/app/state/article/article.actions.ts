@@ -27,9 +27,13 @@ export const loadSearchedArticlesSuccess = createAction(
     props<{ articles: Article[] }>()
 );
 
-export const addArticle = createAction(
+/* export const addArticle = createAction(
     'addArticle',
     props<{ articleData: CreateModArticleDto }>()
+); */
+export const addArticle = createAction(
+    'addArticle',
+    props<{ articleData: FormData }>()
 );
 export const addArticleSuccess = createAction(
     'addArticleSuccess',
@@ -38,8 +42,12 @@ export const addArticleSuccess = createAction(
 
 export const updateArticle = createAction(
     'updateArticle',
-    props<{ articleId: string, articleData: CreateModArticleDto}>()
+    props<{ articleId: string, articleData: FormData}>()
 );
+/* export const updateArticle = createAction(
+    'updateArticle',
+    props<{ articleId: string, articleData: CreateModArticleDto}>()
+); */
 export const updateArticleSuccess = createAction(
     'updateArticleSuccess',
     props<{ article: Article }>()
@@ -60,5 +68,20 @@ export const stringSearchArticles = createAction(
 );
 export const stringSearchArticlesSuccess = createAction(
     'stringSearchArticlesSuccess',
+    props<{ articles: Article[] }>()
+);
+
+export const filterArticlesByCar = createAction(
+    'filterArticlesByCar',
+    props<{ carId: string, engineId: string }>()
+);
+export const filterArticlesByCarSuccess = createAction(
+    'filterArticlesByCarSuccess',
+    props<{ articles: Article[] }>()
+);
+
+export const loadNewestArticles = createAction('loadNewestArticles');
+export const loadNewestArticlesSuccess = createAction(
+    'loadNewestArticlesSuccess',
     props<{ articles: Article[] }>()
 );

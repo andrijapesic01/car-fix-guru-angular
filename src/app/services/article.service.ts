@@ -20,18 +20,35 @@ export class ArticlesService {
         return this.http.get<Article[]>(`${this.apiUrl}/articles`);
     }
 
+    getNewestArticles() {
+        return this.http.get<Article[]>(`${this.apiUrl}/articles/getNewest`);
+    }
+
     getArticleById(id: string) {
         return this.http.get<Article>(`${this.apiUrl}/articles/${id}`);
     }
 
-    addArticle(articleData: CreateModArticleDto) {
+    addArticle(articleData: FormData) {
+        console.log(articleData);
+        return this.http.post<Article>(`${this.apiUrl}/articles/addArticle`, articleData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+        });
+    }
+    
+    /* addArticle(articleData: CreateModArticleDto) {
         const body = articleData;
         return this.http.post<Article>(`${this.apiUrl}/articles/addArticle`, body);
-    }
+    } */
 
-    updateArticle(articleId: string, articleData: CreateModArticleDto) {
+    /* updateArticle(articleId: string, articleData: CreateModArticleDto) {
         const body = articleData;
         return this.http.put<Article>(`${this.apiUrl}/articles/changeArticle/${articleId}`, body);
+    } */
+
+    updateArticle(articleId: string, articleData: FormData) {
+        return this.http.put<Article>(`${this.apiUrl}/articles/changeArticle/${articleId}`, articleData);
     }
 
     deleteArticle(articleId: string) {
@@ -40,5 +57,9 @@ export class ArticlesService {
 
     stringSearch(searchString: string) {
         return this.http.get<Article[]>(`${this.apiUrl}/articles/stringSearch/${searchString}`);
+    }
+
+    filterArticlesByCar(carId: string, engineId: string) {
+        return this.http.get<Article[]>(`${this.apiUrl}/articles/filterByCar/${carId}/${engineId}`);
     }
 }

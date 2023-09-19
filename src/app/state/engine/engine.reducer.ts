@@ -4,14 +4,14 @@ import { Engine } from "src/app/models/engine/engine.model";
 import * as EngineActions from './engine.actions' 
 
 export interface EngineState extends EntityState<Engine> {
-    //engines: Engine[],
+    fuelTypes: string[];
     loading: boolean;    
 }
 
 const adapter: EntityAdapter<Engine> = createEntityAdapter<Engine>();
 
 export const initialState: EngineState = adapter.getInitialState({
-    //engines: [],
+    fuelTypes: [],
     loading: false 
 });
 
@@ -47,5 +47,12 @@ export const engineReducer = createReducer(
     }),
     on(EngineActions.deleteEngineSuccess, (state: EngineState, { engineId }) => {
         return adapter.removeOne(engineId, state);
-    }) 
+    }), 
+    on(EngineActions.loadFuelTypesSuccess, (state, { fuelTypes }) => ({
+        ...state,
+        fuelTypes: fuelTypes
+    })), 
+    on(EngineActions.searchEnginesSuccess, (state: EngineState, { engines }) => {
+        return adapter.setAll(engines, state);
+    }), 
 );

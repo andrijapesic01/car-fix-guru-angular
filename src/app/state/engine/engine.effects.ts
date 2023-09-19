@@ -10,19 +10,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable()
 export class EngineEffects {
 
-    constructor(private router: Router, private engineService: EnginesService, private action$: Actions, private snackBar: MatSnackBar) {
+    constructor(private router: Router, private engineService: EnginesService, private action$: Actions, private snackBar: MatSnackBar) { }
 
-    }
-
-    loadEngines$ = createEffect(() => 
+    loadEngines$ = createEffect(() =>
         this.action$.pipe(
             ofType(EngineActions.loadEngines),
-            mergeMap(() => 
+            mergeMap(() =>
                 this.engineService.getAllEngines().pipe(
                     map((engines: Engine[]) => {
                         return EngineActions.loadEnginesSuccess({ engines });
                     }),
-                    catchError(({error}) => {
+                    catchError(({ error }) => {
                         return of({ type: error.message });
                     })
                 )
@@ -46,10 +44,10 @@ export class EngineEffects {
         )
     );
 
-    createEngine$ = createEffect(() => 
+    createEngine$ = createEffect(() =>
         this.action$.pipe(
             ofType(EngineActions.addEngine),
-            mergeMap(({engineData}) => 
+            mergeMap(({ engineData }) =>
                 this.engineService.addEngine(engineData).pipe(
                     map((engine) => {
                         this.snackBar.open('Engine successfully added!', 'Okay', {
@@ -69,12 +67,12 @@ export class EngineEffects {
                 )
             )
         )
-    );                
+    );
 
-    updateEngine$ = createEffect(() => 
+    updateEngine$ = createEffect(() =>
         this.action$.pipe(
             ofType(EngineActions.updateEngine),
-            mergeMap(({ engineId, engineData}) => 
+            mergeMap(({ engineId, engineData }) =>
                 this.engineService.updateEngine(engineId, engineData).pipe(
                     map((engine: Engine) => {
                         this.snackBar.open('Engine successfully updated.', 'Close', {
@@ -86,7 +84,7 @@ export class EngineEffects {
                         return EngineActions.updateEngineSuccess({ engine });
                     }),
                     catchError(({ error }) => {
-                        return of({ type: error.message});
+                        return of({ type: error.message });
                     })
                 )
             )
@@ -101,16 +99,16 @@ export class EngineEffects {
                 return this.engineService.deleteEngine(engineId).pipe(
                     map((res) => {
                         if (res.success) {
-                        this.snackBar.open('Engine successfully removed.', 'Close', {
-                            duration: 3000,
-                        });
+                            this.snackBar.open('Engine successfully removed.', 'Close', {
+                                duration: 3000,
+                            });
                         }
                         this.router.navigate(['engines'], { replaceUrl: true });
                         return EngineActions.deleteEngineSuccess({ engineId: id });
                     }),
                     catchError(({ error }) => {
                         this.snackBar.open(error.message, 'Close', {
-                        duration: 3000,
+                            duration: 3000,
                         });
                         return of({ type: error.message });
                     })
@@ -118,4 +116,42 @@ export class EngineEffects {
             })
         )
     );
+
+    searchEngines$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(EngineActions.searchEngines),
+            mergeMap(({ searchString }) =>
+                this.engineService.searchEngines(searchString).pipe(
+                    map((engines: Engine[]) => {
+                        this.snackBar.open('Search applied!', 'Okay', {
+                            duration: 1250,
+                        });
+                        return EngineActions.searchEnginesSuccess({ engines });
+                    }),
+                    catchError(({ error }) => {
+                        this.snackBar.open('Error occured while while searching!', 'Close', {
+                            duration: 2000,
+                        });
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    );
+
+    loadFuelTypes$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(EngineActions.loadFuelTypes),
+            mergeMap(() =>
+                this.engineService.getAllFuelTypes().pipe(
+                    map((fuelTypes: string[]) => {
+                        return EngineActions.loadFuelTypesSuccess({ fuelTypes });
+                    }),
+                    catchError(({ error }) => {
+                        return of({ type: error.message });
+                    })
+                )
+            )
+        )
+    )
 }

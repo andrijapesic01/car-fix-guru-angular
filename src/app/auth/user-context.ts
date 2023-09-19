@@ -10,7 +10,6 @@ export const setUser = (user: User | null) => {
 
 export const getUser = (): User | null => {
   const user = localStorage.getItem('user');
-
   if (user) {
     return JSON.parse(user);
   } else {

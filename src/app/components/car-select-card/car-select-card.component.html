@@ -3,7 +3,6 @@
     <mat-icon class="title-icon">directions_car</mat-icon>
     <h3 class="title-text"> PLEASE SELECT YOUR CAR</h3>
   </div>
-  
   <form [formGroup]="carForm">
     <mat-form-field class="field">
       <mat-label>Make:</mat-label>
@@ -11,7 +10,6 @@
         <mat-option *ngFor="let make of makes" [value]="make">{{ make }}</mat-option>
       </mat-select>
     </mat-form-field>
-  
     <mat-form-field class="field">
       <mat-label>Model:</mat-label>
       <mat-select formControlName="selectedModel" (selectionChange)="onSelectModelChange()">
@@ -20,20 +18,21 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    
     <mat-form-field class="field">
       <mat-label>Engine:</mat-label>
-      <mat-select formControlName="selectedEngine" (selectionChange)="onSelectEngineChange()">
+      <mat-select formControlName="selectedEngine">
         <mat-option *ngFor="let engine of engines" [value]="engine.id">
           {{ engine.code + " " + engine.configuration + " " + engine.displacement + "l " + engine.mark + " ("  
             + engine.fuelType + ") " + engine.power + "kW " + engine.torque + "Nm"  }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    
     <div class="button-center">
-      <button mat-raised-button class="search-button" color="primary" type="submit">
+      <button mat-raised-button class="search-button" color="primary" type="submit" (click)="onSelectCarSearchClick()">
         Search
+      </button>
+      <button *ngIf="searched" mat-raised-button class="search-button reset" color="accent" type="reset" (click)="onResetClick()">
+        Reset
       </button>
     </div>
   </form>

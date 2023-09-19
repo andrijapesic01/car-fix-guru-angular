@@ -1,5 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { Car } from "src/app/models/car/car.model";
 import { CreateModPartDto } from "src/app/models/part/create-mod-part.dto";
 import { Part } from "src/app/models/part/part.model";
 
@@ -29,7 +28,7 @@ export const loadCertainNumOfPartsSuccess = createAction(
 
 export const loadSearchedParts = createAction(
     'loadSearchedParts',
-    props<{ input: string, category: string, subCategory: string, car: Car}>()
+    props<{ carId: string, engineId: string, category: string, subCategory: string, manufacturer: string }>()
 );
 export const loadSearchedPartsSuccess = createAction(
     'loadSearchedPartsSuccess',
@@ -38,16 +37,24 @@ export const loadSearchedPartsSuccess = createAction(
 
 export const addPart = createAction(
     'addPart',
-    props<{ partData: CreateModPartDto }>()
+    props<{ partData: FormData }>()
 );
+/* export const addPart = createAction(
+    'addPart',
+    props<{ partData: CreateModPartDto }>()
+); */
 export const addPartSuccess = createAction(
     'addPartSuccess',
     props<{ part: Part }>()
 );
 
-export const updatePart = createAction(
+/* export const updatePart = createAction(
     'updatePart',
     props<{ partId: string, partData: CreateModPartDto}>()
+); */
+export const updatePart = createAction(
+    'updatePart',
+    props<{ partId: string, partData: FormData}>()
 );
 export const updatePartSuccess = createAction(
     'updatePartSuccess',
@@ -72,3 +79,17 @@ export const stringSearchSuccess = createAction(
     props<{ parts: Part[] }>()
 );
 
+/* export const uploadPartImages = createAction(
+    'uploadPartImages',
+    props<{ images: File[] }>()
+);
+export const uploadPartImagesSuccess = createAction(
+    'uploadPartImagesSuccess',
+    props<{ imgURLs: string[] }>()
+); */
+
+export const loadPartManufacturers = createAction('loadPartManufacturers');
+export const loadPartManufacturersSuccess = createAction(
+    'loadPartManufacturersSuccess',
+    props<{ manufacturers: string[] }>()
+);

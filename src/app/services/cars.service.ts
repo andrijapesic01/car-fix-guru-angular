@@ -37,4 +37,12 @@ export class CarsService {
     deleteCar(carId: string) {
         return this.http.delete<any>(`${this.apiUrl}/cars/deleteCar/${carId}`);
     }
+
+    stringSearchCars(searchString: string) {
+        return this.http.get<Car[]>(`${this.apiUrl}/cars/searchCars/${searchString}`);
+    }
+
+    getCarCategories() {
+        return this.http.get<string[]>(`${this.apiUrl}/cars/carCategories`);
+    }
 }

@@ -9,8 +9,8 @@
     padding: 20px;
     background-color: #fff;
     text-align: center;
-    width: 400px;
-    margin-top: 50px;
+    width: 520px;
+    margin-top: 20px;
 }
   
 .form-group {
@@ -27,7 +27,7 @@
 }
   
 .form-control {
-    width: 250px;
+    width: 390px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -39,11 +39,11 @@ button {
 }
 
 select.form-control {
-    width: 268px;
+    width: 408px;
 }
 
 .custom-select {
-    height: 60px;
-    width: 268px;
-    background-color: red;
+    height: 140px;
+    width: 408px;
+    background-color: rgb(235, 235, 235);
 }

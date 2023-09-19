@@ -4,23 +4,14 @@ import { Car } from "src/app/models/car/car.model";
 import * as CarActions from './car.actions'
 
 export interface CarState extends EntityState<Car> {
-    /* cars: Car[],*/
-    selectedMake: string;
-    //selectedModel: string;
-    selectedCarId: string;
-    selectedEngineId: string;
-    /*engine: string; */
+    carCategories: string[];
     loading: boolean;
 }
 
 const adapter: EntityAdapter<Car> = createEntityAdapter<Car>();
 
 export const initialState: CarState = adapter.getInitialState({
-    //cars: [],
-    selectedMake: '',
-    //selectedModel: '',
-    selectedCarId: '',
-    selectedEngineId: '',
+    carCategories: [],
     loading: false
 });
 
@@ -61,16 +52,11 @@ export const carReducer = createReducer(
     on(CarActions.deleteCarSuccess, (state: CarState, { carId }) => {
         return adapter.removeOne(carId, state);
     }),
-    on(CarActions.setSelectedMake, (state, { brand }) => ({
+    on(CarActions.stringSearchCarsSuccess, (state: CarState, { cars }) => {
+        return adapter.setAll(cars, state);
+    }),
+    on(CarActions.loadCarCategoriesSuccess, (state, { carCategories }) => ({
         ...state,
-        selectedMake: brand,
+        carCategories: carCategories,
     })),
-    on(CarActions.setSelectedCarId, (state, { carId }) => ({
-        ...state,
-        selectedCarId: carId
-    })),
-    on(CarActions.setSelectedEngineId, (state, { engineId }) => ({
-        ...state,
-        selectedEngineId: engineId
-    }))
 );

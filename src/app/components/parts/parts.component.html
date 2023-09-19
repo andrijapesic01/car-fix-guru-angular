@@ -1,37 +1,57 @@
 <div class="car-parts-page">
   <div class="search-bar">
     <div class="search-field">
-      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name" [(ngModel)]="searchString">
+      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name"
+        [(ngModel)]="searchString">
       <button mat-raised-button color="primary" class="search-button" (click)="stringSearchClick()">
         <mat-icon class="search-icon">search</mat-icon>
         <span class="button-text">Search</span>
       </button>
     </div>
   </div>
-  <button mat-fab color="primary" class="fab-button" (click)="btnAddClick()">
+  <button mat-fab *ngIf="user?.role === 'admin'" color="primary" class="fab-button" (click)="btnAddClick()">
     <mat-icon>add</mat-icon>
   </button>
   <div class="main-content">
     <div class="left-column">
-      <app-car-select-card></app-car-select-card>
-    </div>
-
-    <div class="right-column">
-      <div class="parts-manufacturers-banner"> 
-
+      <app-car-select-card (buttonClicked)="onCarSearchButtonClicked($event)"></app-car-select-card>
+      <div class="filters-section">
+        <h3 class="filters-text">FILTERS</h3>
+        <mat-form-field class="category-dropdown">
+          <mat-label>Category</mat-label>
+          <mat-select [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()">
+            <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="subcategory-dropdown">
+          <mat-label>Subcategory</mat-label>
+          <mat-select [(ngModel)]="selectedSubCategory">
+            <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="manufacturers-dropdown">
+          <mat-label>Manufacturers</mat-label>
+          <mat-select [(ngModel)]="selectedManufacturer">
+            <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer">
+              {{ manufacturer}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="applyClick()">Apply</button>
+          <button *ngIf="filtersAplied" mat-raised-button color="accent" (click)="resetClick()">Reset</button>
+        </div>
       </div>
-      <mat-paginator
-        [length]="partsCount$ | async" 
-        [pageSize]="pageSize"
-        [pageSizeOptions]="pageSizeOptions"
-        (page)="onPageChange()"
-      ></mat-paginator>
-
+    </div>
+    <div class="right-column">
+      <mat-paginator [length]="partsCount$ | async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange()" (pageSizeChange)="onPageSizeChange($event)"></mat-paginator>
       <div class="part-cards">
         <div class="part-card" *ngFor="let part of parts$ | async">
           <app-part-card [part]="part" (click)="partCardClick(part)"></app-part-card>
         </div>
       </div>
+      <app-cart-button *ngIf="user?.role === 'user'" class="cart-button-position"></app-cart-button>
     </div>
   </div>
 </div>

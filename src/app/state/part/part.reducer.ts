@@ -4,18 +4,16 @@ import { Part } from "src/app/models/part/part.model";
 import * as PartActions from './part.actions' 
 
 export interface PartState extends EntityState<Part> {
-    parts: Part[],
-    category: string | null;
-    subCategory: string | null;
+    /* uploadedImgUrls: string[]; */
+    manufacturers: string[];
     loading: boolean;    
 }
 
 const adapter: EntityAdapter<Part> = createEntityAdapter<Part>();
 
 export const initialState: PartState = adapter.getInitialState({
-    parts: [],
-    category: null,
-    subCategory: null,
+    /* uploadedImgUrls: [], */
+    manufacturers: [],
     loading: false 
 });
 
@@ -64,7 +62,15 @@ export const partReducer = createReducer(
     }),
     on(PartActions.stringSearchSuccess, (state: PartState, { parts }) => {
         return adapter.setAll(parts, state);
-    }) 
+    }),
+    /* on(PartActions.uploadPartImagesSuccess, (state, { imgURLs }) => ({
+        ...state,
+        uploadedImgUrls: imgURLs
+    })), */
+    on(PartActions.loadPartManufacturersSuccess, (state, { manufacturers }) => ({
+        ...state,
+        manufacturers: manufacturers
+    })),
 );
 
 

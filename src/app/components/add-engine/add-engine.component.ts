@@ -4,7 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { CreateModEngineDto } from 'src/app/models/engine/create-mod-engine-dto';
-import { addEngine } from 'src/app/state/engine/engine.actions';
+import { addEngine, loadFuelTypes } from 'src/app/state/engine/engine.actions';
+import { selectFuelTypes } from 'src/app/state/engine/engine.selector';
 
 @Component({
   selector: 'app-add-engine',
@@ -12,16 +13,15 @@ import { addEngine } from 'src/app/state/engine/engine.actions';
   styleUrls: ['./add-engine.component.css']
 })
 
-//Add onInit to fetch fuelTypes from DB
 export class AddEngineComponent implements OnInit {
-  fuelTypes: string[] = ["Diesel", "Petrol", "Hybrid-Petrol", "Hybrid-Diesel", "Methanol"];
+  fuelTypes: string[] = [];
   engineForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private store: Store<AppState>) {
-    
-  }
+  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private store: Store<AppState>) { }
 
   ngOnInit() : void {
+    this.store.dispatch(loadFuelTypes());
+    this.store.select(selectFuelTypes).subscribe((selectedFuelTypes) => this.fuelTypes = selectedFuelTypes);
     this.initializeForm();
   }
 

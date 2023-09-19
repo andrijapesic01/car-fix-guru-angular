@@ -1,8 +1,8 @@
 <div class="engines-page">
     <div class="search-bar">
         <div class="search-field">
-          <input type="text" class="search-bar-input" placeholder="Search for engines...">
-          <button mat-raised-button color="primary" class="search-button">
+          <input type="text" class="search-bar-input" placeholder="Search for engines..." [(ngModel)]="inputString">
+          <button mat-raised-button color="primary" class="search-button" (click)="searchClick()">
             <mat-icon class="search-icon">search</mat-icon>
             <span class="button-text">Search</span>
           </button>
@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let engine of engines">
+                <tr *ngFor="let engine of engines$ | async">
                     <td>{{ engine.code }}</td>
                     <td>{{ engine.configuration }}</td>
                     <td>{{ engine.fuelType }}</td>

@@ -11,8 +11,10 @@ export const environment = {
     authDomain: 'carfixguru-e925f.firebaseapp.com',
     messagingSenderId: '700585940717',
   },
+  
   localStorage : {
     cartKey: 'cart'
   },
+
   production: false
 };

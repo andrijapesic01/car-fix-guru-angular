@@ -1,26 +1,32 @@
 <div class="page-container">
     <div class="fab-button-container">
         <a href="/add-article" class="fab-button-link">
-          <button mat-fab color="primary" class="fab-button">
-            <mat-icon>add</mat-icon>
-          </button>
+            <button mat-fab color="primary" class="fab-button">
+                <mat-icon>add</mat-icon>
+            </button>
         </a>
     </div>
     <div *ngIf="article" class="article-page">
         <h1 class="headline">{{ article.headline }}</h1>
-        <div class="text"><a class="dividing-headline">Car</a>Audi A6 C7(4G) 2L TDI 130KW</div>
+        <div class="text"><a class="dividing-headline">Car:</a>
+            {{ articleCar?.brand + " " + articleCar?.model + " " + articleCar?.generation + " " + articleCar?.category +
+            " " +articleEngine?.displacement + "l " + articleEngine?.mark + " " + articleEngine?.power + "kW " + articleEngine?.torque + "Nm" 
+            + " (" + articleEngine?.code + ") " }}
+        </div>
         <div class="text"><a class="dividing-headline">Description</a>{{ article.description }}</div>
         <div class="article-text"><a class="dividing-headline">Article</a>
             <p class="text">{{ article.text }}</p>
         </div>
         <div class="images"><a class="dividing-headline">Images</a>
-        <img *ngFor="let imageUrl of article.imgURLs" [src]="imageUrl" alt="Article Image">
+            <div class = "images-container">
+                <img *ngFor="let imageUrl of article.imgURLs" [src]="(imageUrl ? imgPath + '/' + imageUrl : '')" alt="Article Image">
+            </div>
         </div>
         <div class="links-paragraph"><a class="dividing-headline">Parts</a>{{ article.parts }}</div>
         <div class="links-paragraph"><a class="dividing-headline">Tools</a>{{ article.tools }}</div>
-        <div class ="buttons">
+        <div *ngIf="(article?.userId === user?.id) || (user?.role === admin)" class="buttons">
             <button mat-raised-button color="primary" class="mat-button" (click)="btnUpdateClick()">Update</button>
-            <button mat-raised-button color="accent" class="mat-button" (click)="btnDeleteClick()">Delete</button>        
+            <button mat-raised-button color="accent" class="mat-button" (click)="btnDeleteClick()">Delete</button>
         </div>
     </div>
     <div *ngIf="!article" class="article-page">

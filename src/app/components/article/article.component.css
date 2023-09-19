@@ -48,13 +48,15 @@
     margin-bottom: 10px;
 }
 
-.images {
-    margin-top: 20px;
+.images-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .images img {
-    display: block;
-    max-width: 100%;
+    max-width: 60%;
     margin-top: 10px;
 }
 

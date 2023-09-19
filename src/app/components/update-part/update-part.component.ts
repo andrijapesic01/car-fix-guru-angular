@@ -6,7 +6,6 @@ import { AppState } from 'src/app/app.state';
 import { Car } from 'src/app/models/car/car.model';
 import { Engine } from 'src/app/models/engine/engine.model';
 import { PartCategory } from 'src/app/models/part-category/part-category.model';
-import { CreateModPartDto } from 'src/app/models/part/create-mod-part.dto';
 import { Part } from 'src/app/models/part/part.model';
 import { SubCategory } from 'src/app/models/part-category/sub-category.model';
 import { loadCars } from 'src/app/state/car/car.actions';
@@ -26,21 +25,23 @@ import { selectPartById } from 'src/app/state/part/part.selector';
 export class UpdatePartComponent implements OnInit {
 
   partId!: string;
-  part: Part | undefined; 
+  part: Part | undefined;
   partForm!: FormGroup;
   cars: Car[] = [];
   engines: Engine[] = [];
   partCategories: PartCategory[] = [];
   subCategories: SubCategory[] = [];
+  selectedFiles: File[] = [];
+  imgURLs: string[] = [];
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private store: Store<AppState>) {}
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.partId = params['id']);
     this.store.dispatch(loadPartCategories());
     this.store.dispatch(loadEngines());
     this.store.dispatch(loadCars());
-  
+
     this.store.select(selectAllPartCategories).subscribe((selectedPartCategories) => {
       this.partCategories = selectedPartCategories;
     })
@@ -50,15 +51,15 @@ export class UpdatePartComponent implements OnInit {
     this.store.select(selectAllCars).subscribe((selectedCars) => {
       this.cars = selectedCars;
     })
-    
+
     this.initializeForm();
     this.store.select(selectPartById(this.partId)).subscribe((selectedPart) => {
       this.part = selectedPart;
-      this.bindFormWithData();    
+      this.bindFormWithData();
     })
   }
 
-  initializeForm() : void {
+  initializeForm(): void {
     this.partForm = this.formBuilder.group({
       name: ['', Validators.required],
       manufacturer: ['', Validators.required],
@@ -66,13 +67,13 @@ export class UpdatePartComponent implements OnInit {
       subCategory: ['', Validators.required],
       referenceNumber: ['', Validators.required],
       imgURLs: [''],
-      engineIDs: [],
-      carIDs: [''],
+      engineIDs: [[]],
+      carIDs: [[]],
       price: ['', Validators.required],
       quantity: ['', Validators.required]
     });
   }
-  
+
   bindFormWithData() {
     if (this.part) {
       this.partForm.patchValue({
@@ -92,27 +93,59 @@ export class UpdatePartComponent implements OnInit {
       })
     }
   }
-  
+
   onCategoryChange() {
     const selectedCategoryName = this.partForm.get('category')?.value;
     const selectedCategory = this.partCategories.find(category => category.name === selectedCategoryName);
 
     if (selectedCategory) {
       this.subCategories = selectedCategory.subCategories || [];
-      this.partForm.patchValue({ subCategory: '' }); 
-    }
-  }
-
-  updatePart() {
-    if(this.partForm.valid){
-      const updatedData: CreateModPartDto = this.partForm.value;
-      console.log(updatedData);
-      this.store.dispatch(updatePart({partId: this.partId, partData: updatedData}));
+      this.partForm.patchValue({ subCategory: '' });
     }
   }
 
   onSelectImages(event: any) {
-
+    this.selectedFiles = event.target.files;
   }
 
+  updatePart() {
+    if (this.partForm.valid) {
+      const updatedData: FormData = new FormData();
+      const carIds = this.partForm.controls['carIDs'].value ? this.partForm.controls['carIDs'].value : [];
+      const engineIds = this.partForm.controls['engineIDs'].value ? this.partForm.controls['engineIDs'].value : [];
+
+      if (this.selectedFiles.length > 0) {
+        for (let i = 0; i < this.selectedFiles.length; i++) {
+          updatedData.append('images', this.selectedFiles[i]);
+        }
+      } else {
+        updatedData.append('imgURLs', `${this.part?.imgURLs}`);
+      }
+      if (engineIds.length > 0) {
+        for (const value of engineIds) {
+          updatedData.append('engineIDs', value);
+        }
+      } else {
+        console.log("debug" + `${this.part?.engineIDs}`);
+        updatedData.append('engineIDs', `${this.part?.engineIDs}`);
+      }
+      if(carIds.length > 0) {
+        for (const value of carIds) {
+          updatedData.append('carIDs', value);
+        }
+      } else {
+        updatedData.append('carIDs', `${this.part?.carIDs}`);
+      }
+      updatedData.append('name', this.partForm.controls['name'].value);
+      updatedData.append('manufacturer', this.partForm.controls['manufacturer'].value);
+      updatedData.append('category', this.partForm.controls['category'].value);
+      updatedData.append('subCategory', this.partForm.controls['subCategory'].value);
+      updatedData.append('referenceNumber', this.partForm.controls['referenceNumber'].value);
+      updatedData.append('price', this.partForm.controls['price'].value);
+      updatedData.append('quantity', this.partForm.controls['quantity'].value);
+      
+
+      this.store.dispatch(updatePart({ partId: this.partId, partData: updatedData }));
+    }
+  }
 }

@@ -24,10 +24,6 @@ export const selectAllCars = createSelector(selectCarsFeature, (car) =>
         .map((car) => <Car>car)
 );
 
-export const selectSelectedMake = createSelector(
-    selectCarsFeature,
-    (state) => state.selectedMake
-);
 
 export const selectCarBrands = createSelector(selectAllCars, (cars) => {
     const uniqueMakesSet = new Set<string>();
@@ -35,35 +31,15 @@ export const selectCarBrands = createSelector(selectAllCars, (cars) => {
         uniqueMakesSet.add(car.brand);
     });
     return Array.from(uniqueMakesSet).sort();
-})
+});
 
-/* export const selectCarModels = createSelector(
+export const selectCarsByBrand = (make: string) => createSelector(
     selectAllCars,
-    selectSelectedMake,
-    (cars, selectedMake) => {
-        const filteredModels: string[] = [];
-        if (selectedMake) {
-            cars.forEach((car) => {
-                if (car.brand === selectedMake) {
-                    const formattedModel = car.model + ' ' + car.generation + ' ' + car.category + ' (' + car.yearFrom
-                        + '-' + car.yearTo + ')';
-
-                    filteredModels.push(formattedModel);
-                }
-            });
-        }
-        return filteredModels;
-    }
-); */
-
-export const selectCarsByBrand = createSelector(
-    selectAllCars,
-    selectSelectedMake,
-    (cars, selectedMake) => {
+    (cars) => {
         const filteredCars: Car[] = [];
-        if (selectedMake) {
+        if (make) {
             cars.forEach((car) => {
-                if(car.brand === selectedMake) {
+                if(car.brand === make) {
                     filteredCars.push(car);
                 }
             })
@@ -72,12 +48,7 @@ export const selectCarsByBrand = createSelector(
     }
 );
 
-export const selectSelectedCarId = createSelector(
+export const selectCarCategories = createSelector(
     selectCarsFeature,
-    (state) => state.selectedCarId
-);
-
-export const selectSelectedEngineId = createSelector(
-    selectCarsFeature,
-    (state) => state.selectedEngineId
-);
+    (state) => state.carCategories
+)

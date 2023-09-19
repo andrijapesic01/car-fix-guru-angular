@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateModPartDto } from '../models/part/create-mod-part.dto';
 import { Part } from '../models/part/part.model';
@@ -11,10 +11,13 @@ import { PartCategory } from '../models/part-category/part-category.model';
 export class PartsService {
   
     private apiUrl = environment.api.apiUrl;
+    private httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'multipart/form-data', 
+        }),
+      };
 
-    constructor(private http: HttpClient) {
-
-    }
+    constructor(private http: HttpClient) { }
 
     getAllParts() {
         return this.http.get<Part[]>(`${this.apiUrl}/parts`);
@@ -24,28 +27,21 @@ export class PartsService {
         return this.http.get<Part>(`${this.apiUrl}/parts/${id}`);
     }
 
-    addPart(partData: CreateModPartDto) {
-        const body = partData;
-        /* const body = {
-                "name": "string",
-                "manufacturer": "strin",
-                "category": "string;",
-                "subCategory": "string;",
-                "referenceNumber": "string;",
-                "imgURLs": ["", ""],
-                "carIDs": [],
-                "transmissionIDs": [],
-                "engineIDs": [],
-                "price": 12.1,
-                "quantity": 10
-        } */
-        
-        return this.http.post<Part>(`${this.apiUrl}/parts/addPart`, body);
+    /* uploadPartImages(images: File[]) {
+        const imageArray = Array.from(images);
+        const formData = new FormData();
+        imageArray.forEach((image) => {
+            formData.append('images', image);
+        });
+        return this.http.post<string[]>(`${this.apiUrl}/parts/uploadImages`, formData, this.httpOptions);
+    } */
+
+    addPart(partData: FormData) {
+        return this.http.post<Part>(`${this.apiUrl}/parts/addPart`, partData);
     }
 
-    updatePart(partId: string, partData: CreateModPartDto) {
-        const body = partData;
-        return this.http.put<Part>(`${this.apiUrl}/parts/changePart/${partId}`, body);
+    updatePart(partId: string, partData: FormData) {
+        return this.http.put<Part>(`${this.apiUrl}/parts/changePart/${partId}`, partData);
     }
 
     deletePart(partId: string) {
@@ -60,7 +56,22 @@ export class PartsService {
         return this.http.get<Part[]>(`${this.apiUrl}/parts/getCertainNumParts/${numOfParts}`);
     }
 
+    filterParts(carId: string, engineId: string, category: string, subCategory: string, manufacturer: string) {
+        const requestBody = {
+            carId: carId,
+            engineId: engineId,
+            category: category,
+            subCategory: subCategory,
+            manufacturer: manufacturer
+        };
+        return this.http.post<Part[]>(`${this.apiUrl}/parts/getFilteredParts`, requestBody);
+    }
+
     searchPartsByString(searchString: string) {
         return this.http.get<Part[]>(`${this.apiUrl}/parts/stringSearch/${searchString}`);
+    }
+
+    getPartManufacturers() {
+        return this.http.get<string[]>(`${this.apiUrl}/parts/getPartsManufacturers`);
     }
 }

@@ -10,7 +10,7 @@ import { CreateModEngineDto } from '../models/engine/create-mod-engine-dto';
 })
 export class EnginesService {
   
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment.api.apiUrl;
   constructor(private http: HttpClient) { }
 
   getAllEngines() {
@@ -36,7 +36,11 @@ export class EnginesService {
   }
 
   getAllFuelTypes() {
-    return this.http.get(environment.api.apiUrl + '/engines/fuelTypes');
+    return this.http.get<string[]>(environment.api.apiUrl + '/engines/fuelTypes');
+  }
+
+  searchEngines(searchString: string) {
+    return this.http.get<Engine[]>(`${this.apiUrl}/engines/searchEngines/${searchString}`);
   }
 
 }

@@ -1,21 +1,14 @@
 <div class="container">
-  <div class="search-bar">
-    <div class="search-field">
-      <input class="search-bar-input" type="text" placeholder="  Enter the part number or name">
-      <button mat-raised-button color="primary" class="search-button">
-        <mat-icon class="search-icon">search</mat-icon>
-        <span class="button-text">Search</span>
-      </button>
-    </div>
-  </div>
   <div class="page-content">
-    <div class="left-column">
-      <app-car-select-card class="car-select"></app-car-select-card>
-    </div>
-    <div class="right-column">
-      <a class="parts-text">Parts You may be interested in</a>
-      <div class="part-cards">
-        <app-part-card *ngFor="let part of recomandedParts" [part]="part"></app-part-card>
+    <app-about-us></app-about-us>
+    <h2 class="articles-section-text">Our Newest Articles</h2>
+    <div class="article-container">
+      <div class="article" *ngFor="let article of articles$ | async">
+        <div class="article-content">
+          <h2><strong>{{ article.headline }}</strong></h2>
+          <p>{{ article.description }}</p>
+          <button mat-raised-button color="primary" class="read-more-button" (click)="readMoreClick(article.id)">Read More</button>
+        </div>
       </div>
     </div>
   </div>

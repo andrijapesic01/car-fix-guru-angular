@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { Car } from 'src/app/models/car/car.model';
-import { deleteCar, loadCars } from 'src/app/state/car/car.actions';
+import { deleteCar, loadCars, stringSearchCars } from 'src/app/state/car/car.actions';
 import { selectAllCars } from 'src/app/state/car/car.selector';
 
 @Component({
@@ -13,14 +14,13 @@ import { selectAllCars } from 'src/app/state/car/car.selector';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[] = [];
+  inputString: string = "";
+  cars$!: Observable<Car[]>;  
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadCars());
-    this.store.select(selectAllCars).subscribe((selectedCars) => {
-      this.cars = selectedCars;
-    });
+    this.cars$ = this.store.select(selectAllCars);
   }
 
   addClick() {
@@ -38,4 +38,9 @@ export class CarsComponent implements OnInit {
     }
   }
 
+  seachClick() {
+    if(this.inputString !== "") {
+      this.store.dispatch(stringSearchCars({ searchString: this.inputString }));
+    } 
+  }
 }

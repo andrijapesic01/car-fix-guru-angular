@@ -21,7 +21,7 @@ export class UserService {
     }
 
     register(userData: CreateModUserDto) {
-        return this.httpClient.post<User>(`${environment.api}/users/register`, {
+        return this.httpClient.post<User>(`${this.apiUrl}/users/register`, {
             ...userData,
         });
     }

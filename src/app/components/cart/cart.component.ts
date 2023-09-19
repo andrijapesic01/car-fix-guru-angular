@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, async } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { CartItem } from 'src/app/models/cart-item/cart-item.model';
 import { selectAllCartItems, selectCartItemsCount, selectCartTotalPrice } from 'src/app/state/cart/cart.selector';
@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.cartItems$ = this.store.select(selectAllCartItems);
     this.numOfItems$ = this.store.select(selectCartItemsCount);
-    //this.grandTotal$ = this.store.select(selectCartTotalPrice);
+    this.grandTotal$ = this.store.select(selectCartTotalPrice);
   }
 
   removeItem(item: CartItem): void {
@@ -33,24 +33,20 @@ export class CartComponent implements OnInit {
     this.store.dispatch(CartActions.clearCart());
   }
 
-  //Update needed->ngrx
   updateQuantity(item: CartItem, newQuantity: number): void {
     item.orderQuantity = newQuantity;
     this.store.dispatch(CartActions.updateQuantity({cartItem: item}));
   }
 
-  /* decrementQuantity(item: CartItem): void {
-    if (item.orderQuantity > 1) {
-      item.orderQuantity--;
-      item.part.quantity++;
-    }
+  checkoutClick() {
+    this.numOfItems$.subscribe(numOfItems => {
+      if (numOfItems > 0) {
+        this.cartItems$.subscribe(cartItems => {
+          this.store.dispatch(CartActions.checkout({ cartItems }));
+        });
+      }
+    });
   }
 
-  incrementQuantity(item: CartItem): void {
-    if(item.part.quantity > 1) {
-      item.orderQuantity++;
-      item.part.quantity--;
-    }
-  } */
 }
 

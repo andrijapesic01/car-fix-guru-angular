@@ -7,3 +7,13 @@ export const loadPartCategoriesSuccess = createAction(
     'loadPartCategoriesSuccess',
     props<{ partCategories: PartCategory[] }>()
 );
+
+export const setSelectedCategory = createAction(
+    'setSelectedCategory',
+    props<{ category: string }>()
+);
+
+export const setSelectedSubCategory = createAction(
+    'setSelectedSubCategory',
+    props<{ subCategory: string }>()
+);

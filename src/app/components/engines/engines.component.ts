@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { Engine } from 'src/app/models/engine/engine.model';
-import { deleteEngine, loadEngines } from 'src/app/state/engine/engine.actions';
+import { deleteEngine, loadEngines, searchEngines } from 'src/app/state/engine/engine.actions';
 import { selectAllEngines } from 'src/app/state/engine/engine.selector';
 
 @Component({
@@ -12,15 +13,18 @@ import { selectAllEngines } from 'src/app/state/engine/engine.selector';
   styleUrls: ['./engines.component.css']
 })
 export class EnginesComponent implements OnInit {
-  engines: Engine[] = [];
+  //engines: Engine[] = [];
+  /* this.store.select(selectAllEngines).subscribe((selectedEngines) => {
+      this.engines = selectedEngines;
+    }) */
+  engines$! : Observable<Engine[] | undefined>;
+  inputString: string = "";
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() : void {
     this.store.dispatch(loadEngines());
-    this.store.select(selectAllEngines).subscribe((selectedEngines)=> {
-      this.engines = selectedEngines;
-    })
+    this.engines$ = this.store.select(selectAllEngines);
   }
 
   updateClick(event: string) {
@@ -39,6 +43,12 @@ export class EnginesComponent implements OnInit {
 
   addClick() {
     this.router.navigateByUrl('add-engine');
+  }
+
+  searchClick() {
+    if(this.inputString !== "") {
+      this.store.dispatch(searchEngines({ searchString: this.inputString }));
+    }
   }
 
 }

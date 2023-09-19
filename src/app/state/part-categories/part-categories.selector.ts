@@ -14,3 +14,21 @@ export const selectAllPartCategories = createSelector(selectPartCategoriesFeatur
         .filter((partCategory) => partCategory != null)
         .map((partCategory) => <PartCategory>partCategory)
 );
+
+export const selectSelectedCategory = createSelector(
+    selectPartCategoriesFeature,
+    (state) => state.selectedCategory
+);
+
+export const selectSelectedCategoryByName = (selectedCategory: string) => createSelector(selectPartCategoriesFeature, (partCategories) => 
+    partCategories.ids
+        .map((id) => partCategories.entities[id])
+        .filter((partCategory) => partCategory != null && partCategory.name !== selectedCategory)
+        .map((partCategory) => <PartCategory>partCategory)
+);
+
+export const selectSelectedSubCategory = createSelector(
+    selectPartCategoriesFeature,
+    (state) => state.selectedSubCategory
+);
+

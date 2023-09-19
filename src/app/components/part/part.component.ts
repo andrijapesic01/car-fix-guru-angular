@@ -8,7 +8,10 @@ import * as PartActions from 'src/app/state/part/part.actions';
 import { selectPartById } from 'src/app/state/part/part.selector';
 import * as CartActions from 'src/app/state/cart/cart.actions';
 import { v4 as uuidv4 } from 'uuid';
-import { selectAllCartItems } from 'src/app/state/cart/cart.selector';
+import { environment } from 'src/environments/environment';
+import { Roles } from 'src/app/enums/enums';
+import { User } from 'src/app/models/user/user';
+import { selectUser } from 'src/app/state/user/user.selector';
 
 @Component({
   selector: 'app-part',
@@ -19,37 +22,35 @@ export class PartComponent implements OnInit {
   part?: Part;
   partId: string = '';
   selectedQuantity: number = 1;
+  user!: User | null;
+  userRole: Roles = Roles.User;
+  adminRole: Roles = Roles.Admin;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) {
-
-  }
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => this.partId = params['id']);
-      this.store.dispatch(PartActions.loadPart({ partId: this.partId}));
-      this.store.select(selectPartById(this.partId)).subscribe((item) => {
-        this.part = item;
-      });
+    this.store.dispatch(PartActions.loadPart({ partId: this.partId }));
+    this.store.select(selectPartById(this.partId)).subscribe((item) =>  this.part = item );
+    this.store.select(selectUser).subscribe((selectedUser) => this.user = selectedUser);
   }
 
   addToCart(part: Part, orderQuantity: number): void {
-    const cartItem : CartItem = {
+    const cartItem: CartItem = {
       id: uuidv4(),
       part: part,
       orderQuantity: orderQuantity
     }
-    this.store.dispatch(CartActions.addToCart({cartItem: cartItem}));
+    this.store.dispatch(CartActions.addToCart({ cartItem: cartItem }));
   }
 
   decreaseQuantity(): void {
-    //Reducer
-    if (this. part && this.selectedQuantity > 1) {
+    if (this.part && this.selectedQuantity > 1) {
       this.selectedQuantity--;
     }
   }
 
   increaseQuantity(): void {
-    //reducer
     if (this.part && this.selectedQuantity < this.part.quantity) {
       this.selectedQuantity++;
     }
@@ -70,9 +71,5 @@ export class PartComponent implements OnInit {
         this.store.dispatch(PartActions.deletePart({ partId: this.part.id }));
       }
     }
-  }
-
-  cartClick() {
-    this.router.navigate(['/cart']);
   }
 }

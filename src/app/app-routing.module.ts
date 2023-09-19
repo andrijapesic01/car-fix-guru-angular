@@ -23,31 +23,31 @@ import { UpdatePartComponent } from './components/update-part/update-part.compon
 import { CarsComponent } from './components/cars/cars.component';
 import { UpdateCarComponent } from './components/update-car/update-car.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { Roles } from './enums/enums';
+import { RoleAuthGuard } from './auth/auth.role.gurad';
+import { TokenAuthGuard } from './auth/auth.token.gurad';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'signup', component: SignupComponent},
   {path:'home', component: PartCategoriesComponent},
-  {path:'articles', component: ArticlesComponent},
-  {path:'article/:id', component: ArticleComponent},
+  {path:'articles', component: ArticlesComponent, canActivate: [TokenAuthGuard]},
+  {path:'article/:id', component: ArticleComponent, canActivate: [TokenAuthGuard]},
   {path:'parts', component: PartsComponent},
   {path:'part/:id', component: PartComponent},
-  {path:'cart', component: CartComponent},
-  {path:'part-card', component: PartCardComponent},
-  {path:'image-viewer', component: ImageViewerComponent},
-  {path:'engines', component: EnginesComponent},
-  {path:'cars', component: CarsComponent},
-  {path:'add-engine', component: AddEngineComponent},
-  {path:'add-transmission', component: AddTransmissionComponent},
-  {path:'add-car', component: AddCarComponent},
-  {path:'add-part', component: AddPartComponent},
-  {path:'add-article', component: AddArticleComponent},
-  {path:'update-part/:id', component: UpdatePartComponent},
-  {path:'update-article/:id', component: UpdateArticleComponent},
-  {path:'update-engine/:id', component: UpdateEngineComponent},
-  {path:'update-car/:id', component: UpdateCarComponent},
+  {path:'cart', component: CartComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.User }},
+  {path:'engines', component: EnginesComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'cars', component: CarsComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'add-engine', component: AddEngineComponent, canActivate: [RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'add-car', component: AddCarComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'add-part', component: AddPartComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'add-article', component: AddArticleComponent, canActivate: [TokenAuthGuard]},
+  {path:'update-part/:id', component: UpdatePartComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'update-article/:id', component: UpdateArticleComponent, canActivate: [TokenAuthGuard]},
+  {path:'update-engine/:id', component: UpdateEngineComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
+  {path:'update-car/:id', component: UpdateCarComponent, canActivate: [TokenAuthGuard, RoleAuthGuard], data: { role : Roles.Admin }},
   {path:'about-us', component: AboutUsComponent},
-  {path:'profile', component: ProfileComponent},
+  {path:'profile', component: ProfileComponent, canActivate: [TokenAuthGuard]},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', component: PartCategoriesComponent},
 ];

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { PartCategory } from 'src/app/models/part-category/part-category.model';
 
 @Component({
   selector: 'app-part-category-card',
@@ -6,6 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./part-category-card.component.css']
 })
 export class PartCategoryCardComponent {
-  @Input() categoryName: string | undefined;
-  @Input() imgURL: string | undefined;
+  /* @Input() categoryName: string | undefined;
+  @Input() imgURL: string | undefined; */
+  @Input() partCategory: PartCategory | undefined;
 }

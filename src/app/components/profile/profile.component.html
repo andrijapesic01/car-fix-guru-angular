@@ -1,11 +1,11 @@
 <div class="profile-container">
     <div class="user-details">
-        <h2 *ngIf="role == 'user'">User Profile</h2>
-        <h2 *ngIf="role == 'admin'">Admin Profile</h2>
-        <p><strong>Name:</strong> {{ user.name }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Address:</strong> {{ user.address }}</p>
-        <p><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
+        <h2 *ngIf="user?.role == userRole">User Profile</h2>
+        <h2 *ngIf="user?.role == adminRole">Admin Profile</h2>
+        <p><strong>Name:</strong> {{ user?.fname + " " + user?.lname }}</p>
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+        <p><strong>Address:</strong> {{ user?.address + ", " + user?.cityAndState}}</p>
+        <p><strong>Phone Number:</strong> {{ user?.phoneNumber }}</p>
     </div>
     <div class="change-password">
         <div class="text-center">
@@ -15,7 +15,8 @@
             <form (submit)="changePassword()">
                 <div class="form-group">
                     <label for="currentPassword">Current Password:</label>
-                    <input type="password" id="currentPassword" name="currentPassword" [(ngModel)]="oldPassword" required>
+                    <input type="password" id="currentPassword" name="currentPassword" [(ngModel)]="oldPassword"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="newPassword">New Password:</label>
@@ -31,24 +32,25 @@
             </form>
         </div>
     </div>
-    <div class="admin-panel"><a class="admin-panel-text"><strong>Site management panel</strong></a>
-    <div class="site-management">
-        <a routerLink="/engines" class="management-square">
-            <img src="/assets/engine-icon.png" alt="Engine">
-            <p>Engines</p>
-        </a>
-        <a routerLink="/cars" class="management-square">
-            <img src="/assets/lambo-icon.png" alt="Cars">
-            <p>Cars</p>
-        </a>
-        <a routerLink="/parts" class="management-square">
-            <img src="/assets/part.png" alt="Part">
-            <p>Parts</p>
-        </a>
-        <a routerLink="/articles" class="management-square">
-            <img src="/assets/article.png" alt="Article">
-            <p>Articles</p>
-        </a>
+    <div *ngIf="user?.role == adminRole" class="admin-panel"><a class="admin-panel-text"><strong>Site management
+                panel</strong></a>
+        <div class="site-management">
+            <a routerLink="/engines" class="management-square">
+                <img src="/assets/engine-icon.png" alt="Engine">
+                <p>Engines</p>
+            </a>
+            <a routerLink="/cars" class="management-square">
+                <img src="/assets/lambo-icon.png" alt="Cars">
+                <p>Cars</p>
+            </a>
+            <a routerLink="/parts" class="management-square">
+                <img src="/assets/part.png" alt="Part">
+                <p>Parts</p>
+            </a>
+            <a routerLink="/articles" class="management-square">
+                <img src="/assets/article.png" alt="Article">
+                <p>Articles</p>
+            </a>
+        </div>
     </div>
-</div>  
 </div>
